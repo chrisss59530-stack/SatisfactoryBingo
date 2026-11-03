@@ -1,0 +1,7 @@
+Binaries/
+Intermediate/
+Saved/
+.vs/
+*.log
+*.pdb
+*.suo

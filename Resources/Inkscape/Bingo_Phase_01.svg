@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="1500" height="1100" viewBox="0 0 1500 1100">
+<title>Bingo FICSIT — maquette éditable, phase 1</title>
+<rect x="0" y="0" width="1500" height="1100" rx="0" fill="#111417" stroke="none" stroke-width="1"/>
+<path d="M-50 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M-10 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M30 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M70 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M110 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M150 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M190 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M230 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M270 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M310 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M350 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M390 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M430 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M470 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M510 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M550 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M590 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M630 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M670 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M710 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M750 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M790 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M830 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M870 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M910 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M950 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M990 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1030 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1070 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1110 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1150 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1190 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1230 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1270 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1310 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1350 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1390 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1430 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1470 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1510 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1550 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<path d="M1590 0 l500 1100" stroke="#171b1e" stroke-width="25" opacity="0.5"/>
+<rect x="22" y="18" width="1456" height="14" rx="0" fill="#FFC72C" stroke="none" stroke-width="1"/>
+<path d="M22 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M56 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M90 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M124 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M158 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M192 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M226 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M260 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M294 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M328 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M362 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M396 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M430 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M464 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M498 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M532 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M566 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M600 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M634 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M668 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M702 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M736 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M770 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M804 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M838 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M872 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M906 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M940 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M974 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1008 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1042 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1076 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1110 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1144 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1178 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1212 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1246 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1280 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1314 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1348 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1382 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1416 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1450 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1484 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<path d="M1518 18 l14 14" stroke="#0c0e10" stroke-width="14"/>
+<rect x="22" y="32" width="1456" height="142" rx="8" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<text x="48" y="65" fill="#FF7A29" font-size="15" font-family="sans-serif" font-weight="bold" text-anchor="start">◆  FICSIT INC. — PROTOCOLE DE PRODUCTIVITÉ</text>
+<text x="48" y="123" fill="#EDEFF2" font-size="44" font-family="sans-serif" font-weight="bold" text-anchor="start">DÉFI RELEVÉ ! — ÉDITION PHASES</text>
+<text x="48" y="151" fill="#8A929B" font-size="15" font-family="sans-serif" font-weight="normal" text-anchor="start">5 grilles indépendantes · référence graphique issue du HTML original</text>
+<rect x="22" y="189" width="285" height="62" rx="7" fill="#FF7A29" stroke="#FF7A29" stroke-width="2"/>
+<text x="164.5" y="213" fill="#161819" font-size="17" font-family="sans-serif" font-weight="bold" text-anchor="middle">PHASE 1</text>
+<text x="164.5" y="237" fill="#161819" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="middle">Tiers 0–2</text>
+<rect x="315" y="189" width="285" height="62" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<text x="457.5" y="213" fill="#8A929B" font-size="17" font-family="sans-serif" font-weight="bold" text-anchor="middle">PHASE 2</text>
+<text x="457.5" y="237" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="middle">Tiers 3–4</text>
+<rect x="608" y="189" width="285" height="62" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<text x="750.5" y="213" fill="#8A929B" font-size="17" font-family="sans-serif" font-weight="bold" text-anchor="middle">PHASE 3</text>
+<text x="750.5" y="237" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="middle">Tiers 5–6</text>
+<rect x="901" y="189" width="285" height="62" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<text x="1043.5" y="213" fill="#8A929B" font-size="17" font-family="sans-serif" font-weight="bold" text-anchor="middle">PHASE 4</text>
+<text x="1043.5" y="237" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="middle">Tiers 7–8</text>
+<rect x="1194" y="189" width="285" height="62" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<text x="1336.5" y="213" fill="#8A929B" font-size="17" font-family="sans-serif" font-weight="bold" text-anchor="middle">PHASE 5</text>
+<text x="1336.5" y="237" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="middle">Tier 9 + fin</text>
+<rect x="22" y="265" width="1456" height="67" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="1"/>
+<text x="40" y="291" fill="#FF7A29" font-size="19" font-family="sans-serif" font-weight="bold" text-anchor="start">phase 1 — Fondations</text>
+<text x="40" y="317" fill="#8A929B" font-size="15" font-family="sans-serif" font-weight="normal" text-anchor="start">Avant la 1ère livraison. HUB, bases minières, MAM, exploration.</text>
+<rect x="22" y="347" width="285" height="92" rx="4" fill="#1c2126" stroke="#31383f" stroke-width="1"/>
+<text x="164" y="374" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="middle">SCORE PHASE</text>
+<text x="164" y="417" fill="#EDEFF2" font-size="33" font-family="sans-serif" font-weight="bold" text-anchor="middle">0</text>
+<rect x="315" y="347" width="285" height="92" rx="4" fill="#1c2126" stroke="#31383f" stroke-width="1"/>
+<text x="457" y="374" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="middle">BINGOS</text>
+<text x="457" y="417" fill="#EDEFF2" font-size="33" font-family="sans-serif" font-weight="bold" text-anchor="middle">0</text>
+<rect x="608" y="347" width="285" height="92" rx="4" fill="#1c2126" stroke="#31383f" stroke-width="1"/>
+<text x="750" y="374" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="middle">BONUS BINGO</text>
+<text x="750" y="417" fill="#EDEFF2" font-size="33" font-family="sans-serif" font-weight="bold" text-anchor="middle">0</text>
+<rect x="901" y="347" width="285" height="92" rx="4" fill="#1c2126" stroke="#31383f" stroke-width="1"/>
+<text x="1043" y="374" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="middle">TOTAL PHASE</text>
+<text x="1043" y="417" fill="#EDEFF2" font-size="33" font-family="sans-serif" font-weight="bold" text-anchor="middle">0</text>
+<rect x="1194" y="347" width="285" height="92" rx="4" fill="#1c2126" stroke="#31383f" stroke-width="1"/>
+<text x="1336" y="374" fill="#8A929B" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="middle">POINTS RESTANTS</text>
+<text x="1336" y="417" fill="#EDEFF2" font-size="33" font-family="sans-serif" font-weight="bold" text-anchor="middle">0</text>
+<rect x="22" y="457" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="24" y="459" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="31" y="475" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="187" y="475" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="32" y="499" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Avoir une production de</text>
+<text x="32" y="514" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">plus de 100MW d'énergie</text>
+<rect x="24" y="554" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="109.0" y="567" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="204" y="457" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="206" y="459" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="213" y="475" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="369" y="475" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="214" y="499" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Avoir une production de</text>
+<text x="214" y="514" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">plus de 200MW d'énergie</text>
+<rect x="206" y="554" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="291.0" y="567" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="386" y="457" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="388" y="459" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="395" y="475" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="551" y="475" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="396" y="499" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire une tour</text>
+<text x="396" y="514" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">d'observation</text>
+<rect x="388" y="554" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="473.0" y="567" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="568" y="457" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="570" y="459" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="577" y="475" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="733" y="475" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="578" y="499" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire l'ascenseur</text>
+<text x="578" y="514" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">orbital</text>
+<rect x="570" y="554" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="655.0" y="567" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="750" y="457" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="752" y="459" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="759" y="475" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="915" y="475" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="760" y="499" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un 2e</text>
+<text x="760" y="514" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">constructeur pour un</text>
+<text x="760" y="529" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">même gisement</text>
+<rect x="752" y="554" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="837.0" y="567" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="22" y="581" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="24" y="583" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="31" y="599" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="187" y="599" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="32" y="623" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un MAM</text>
+<rect x="24" y="678" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="109.0" y="691" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="204" y="581" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="206" y="583" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="213" y="599" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="369" y="599" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="214" y="623" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un broyeur</text>
+<rect x="206" y="678" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="291.0" y="691" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="386" y="581" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="388" y="583" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="395" y="599" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="551" y="599" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="396" y="623" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un brûleur</text>
+<text x="396" y="638" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">de biomasse</text>
+<rect x="388" y="678" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="473.0" y="691" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="568" y="581" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="570" y="583" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="577" y="599" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="733" y="599" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="578" y="623" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un conteneur</text>
+<text x="578" y="638" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">de stockage</text>
+<rect x="570" y="678" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="655.0" y="691" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="750" y="581" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="752" y="583" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="759" y="599" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="915" y="599" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="760" y="623" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un groupeur</text>
+<text x="760" y="638" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">pour 3 machines</text>
+<rect x="752" y="678" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="837.0" y="691" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="22" y="705" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="24" y="707" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="31" y="723" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="187" y="723" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="32" y="747" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un</text>
+<text x="32" y="762" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">répartiteur pour 3</text>
+<text x="32" y="777" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">machines</text>
+<rect x="24" y="802" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="109.0" y="815" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="204" y="705" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="206" y="707" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="213" y="723" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="369" y="723" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="214" y="747" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un véhicule</text>
+<rect x="206" y="802" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="291.0" y="815" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="386" y="705" width="174" height="116" rx="7" fill="#241b12" stroke="#FF7A29" stroke-width="2"/>
+<text x="473.0" y="754" fill="#FF7A29" font-size="20" font-family="sans-serif" font-weight="bold" text-anchor="middle">CASE LIBRE</text>
+<text x="473.0" y="778" fill="#FF7A29" font-size="15" font-family="sans-serif" font-weight="bold" text-anchor="middle">CENTRALE</text>
+<rect x="568" y="705" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="570" y="707" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="577" y="723" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="733" y="723" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="578" y="747" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire un</text>
+<text x="578" y="762" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">équipement dans</text>
+<text x="578" y="777" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">l'atelier</text>
+<rect x="570" y="802" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="655.0" y="815" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="750" y="705" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="752" y="707" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="759" y="723" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="915" y="723" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="760" y="747" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire une 2e</text>
+<text x="760" y="762" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">fonderie pour un même</text>
+<text x="760" y="777" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">gisement</text>
+<rect x="752" y="802" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="837.0" y="815" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="22" y="829" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="24" y="831" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="31" y="847" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="187" y="847" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="32" y="871" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire une boutique</text>
+<rect x="24" y="926" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="109.0" y="939" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="204" y="829" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="206" y="831" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="213" y="847" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="369" y="847" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="214" y="871" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire une chaîne</text>
+<text x="214" y="886" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">foreuse→fonderie→constructeur-&gt;conteneur</text>
+<rect x="206" y="926" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="291.0" y="939" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="386" y="829" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="388" y="831" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="395" y="847" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="551" y="847" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="396" y="871" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire une foreuse</text>
+<text x="396" y="886" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">portable</text>
+<rect x="388" y="926" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="473.0" y="939" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="568" y="829" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="570" y="831" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="577" y="847" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="733" y="847" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="578" y="871" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire une</text>
+<text x="578" y="886" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">tronçonneuse</text>
+<rect x="570" y="926" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="655.0" y="939" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="750" y="829" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="752" y="831" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="759" y="847" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="915" y="847" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="760" y="871" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Construire votre 1er</text>
+<text x="760" y="886" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">pont de 10 fondations</text>
+<rect x="752" y="926" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="837.0" y="939" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="22" y="953" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="24" y="955" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="31" y="971" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="187" y="971" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="32" y="995" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Couper 10 arbres à la</text>
+<text x="32" y="1010" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">tronçonneuse</text>
+<rect x="24" y="1050" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="109.0" y="1063" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="204" y="953" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="206" y="955" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="213" y="971" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="369" y="971" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="214" y="995" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Exploiter 4 gisements</text>
+<rect x="206" y="1050" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="291.0" y="1063" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="386" y="953" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="388" y="955" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="395" y="971" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="551" y="971" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="396" y="995" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Exploiter 6 gisements</text>
+<rect x="388" y="1050" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="473.0" y="1063" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="568" y="953" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="570" y="955" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="577" y="971" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="733" y="971" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="578" y="995" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Explorer une grotte</text>
+<rect x="570" y="1050" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="655.0" y="1063" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="750" y="953" width="174" height="116" rx="7" fill="#1c2126" stroke="#31383f" stroke-width="2"/>
+<rect x="752" y="955" width="94" height="22" rx="3" fill="#35C2C1" stroke="none" stroke-width="1"/>
+<text x="759" y="971" fill="#101214" font-size="11" font-family="sans-serif" font-weight="bold" text-anchor="start">FACILE</text>
+<text x="915" y="971" fill="#8A929B" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="end">1 PT</text>
+<text x="760" y="995" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">Explorer une zone</text>
+<text x="760" y="1010" fill="#EDEFF2" font-size="12" font-family="sans-serif" font-weight="normal" text-anchor="start">côtière</text>
+<rect x="752" y="1050" width="170" height="17" rx="2" fill="#13171a" stroke="none" stroke-width="1"/>
+<text x="837.0" y="1063" fill="#8A929B" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">EN ATTENTE</text>
+<rect x="991" y="457" width="487" height="616" rx="9" fill="#1c2126" stroke="#31383f" stroke-width="1"/>
+<text x="1009" y="487" fill="#FF7A29" font-size="24" font-family="sans-serif" font-weight="bold" text-anchor="start">RÉCOMPENSES</text>
+<text x="1009" y="517" fill="#8A929B" font-size="14" font-family="sans-serif" font-weight="normal" text-anchor="start">Points dépensés — phase en cours</text>
+<text x="1443" y="517" fill="#FFC72C" font-size="22" font-family="sans-serif" font-weight="bold" text-anchor="end">0</text>
+<path d="M1003 534 h463" stroke="#31383f"/>
+<rect x="1009" y="547" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="558" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Drone logistique (5 points pour 2 bons)</text>
+<text x="1447" y="562" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">5 PT</text>
+<path d="M1003 592 h463" stroke="#31383f"/>
+<rect x="1009" y="605" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="616" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Drone de retour</text>
+<text x="1447" y="620" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">10 PT</text>
+<path d="M1003 650 h463" stroke="#31383f"/>
+<rect x="1009" y="663" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="674" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Blueprint</text>
+<text x="1447" y="678" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">10 PT</text>
+<path d="M1003 708 h463" stroke="#31383f"/>
+<rect x="1009" y="721" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="732" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Balise de téléportation (utilisation)</text>
+<text x="1447" y="736" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">10 PT</text>
+<path d="M1003 766 h463" stroke="#31383f"/>
+<rect x="1009" y="779" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="790" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Drone cargo (ramène tout un conteneur à la base)</text>
+<text x="1447" y="794" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">15 PT</text>
+<path d="M1003 824 h463" stroke="#31383f"/>
+<rect x="1009" y="837" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="848" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Vol libre 1h</text>
+<text x="1447" y="852" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">15 PT</text>
+<path d="M1003 882 h463" stroke="#31383f"/>
+<rect x="1009" y="895" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="906" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Apparition dans une gare</text>
+<text x="1447" y="910" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">20 PT</text>
+<path d="M1003 940 h463" stroke="#31383f"/>
+<rect x="1009" y="953" width="19" height="19" rx="4" fill="#262c33" stroke="#31383f" stroke-width="1"/>
+<text x="1040" y="964" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">Kit de survie (épée + dékathlons + pistolet +</text>
+<text x="1040" y="981" fill="#EDEFF2" font-size="13" font-family="sans-serif" font-weight="normal" text-anchor="start">munitions)</text>
+<text x="1447" y="968" fill="#FFC72C" font-size="13" font-family="sans-serif" font-weight="bold" text-anchor="end">40 PT</text>
+<rect x="22" y="1080" width="1456" height="8" rx="0" fill="#FF7A29" stroke="none" stroke-width="1"/>
+</svg>

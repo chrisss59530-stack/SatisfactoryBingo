@@ -1,0 +1,17 @@
+﻿AUDIT RECOMPENSES SATISFACTORYBINGO
+Date : 2026-10-25 21:29:21
+HTML SHA256 avant : 13B19C88600304B38D10771F4FBA352D794B7CB8500A9BA6E4DE1618B700E2E0
+
+FICHIERS C++ DETECTES : 9
+
+OCCURRENCES PERTINENTES :
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\SatisfactoryBingo.Build.cs:21: "WebBrowser",
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Private\BingoGameData.cpp:7: TotalScore = 0;
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Private\BingoGameData.cpp:67: TotalScore += Challenge.Points;
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Private\BingoGameData.cpp:103: int32 UBingoGameData::GetTotalScore() const
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Private\BingoGameData.cpp:105: return TotalScore;
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Private\BingoTerminalWidget.cpp:3: void UBingoTerminalWidget::NativeConstruct()
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Private\BingoTerminalWidget.cpp:5: Super::NativeConstruct();
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Public\BingoGameData.h:54: int32 TotalScore = 0;
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Public\BingoGameData.h:66: int32 GetTotalScore() const;
+C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Public\BingoTerminalWidget.h:13: virtual void NativeConstruct() override;

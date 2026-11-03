@@ -1,0 +1,33 @@
+=== SATISFACTORY BINGO : PREPARATION INTERFACE ===
+
+HTML : C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Resources\OriginalBingo\BingoPhases-v0_9.html
+TAILLE : 9464356 octets
+SHA256 : 13B19C88600304B38D10771F4FBA352D794B7CB8500A9BA6E4DE1618B700E2E0
+
+=== CONTENU HTML ===
+CSS integre : 1 occurrence(s)
+JavaScript integre : 1 occurrence(s)
+Feuilles CSS externes : 1 occurrence(s)
+Scripts externes : 0 occurrence(s)
+Images externes : 0 occurrence(s)
+Stockage navigateur : 5 occurrence(s)
+Grilles : 36 occurrence(s)
+Phases : 243 occurrence(s)
+Scores : 110 occurrence(s)
+Penalites : 0 occurrence(s)
+Recompenses : 142 occurrence(s)
+Evenements : 18 occurrence(s)
+
+=== NAVIGATEUR UNREAL ===
+PLUGIN TROUVE : C:\Program Files\Unreal Engine - CSS\Engine\Plugins\Runtime\WebBrowserWidget\WebBrowserWidget.uplugin
+
+=== FICHIERS DU MOD ===
+OK : C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\SatisfactoryBingo.uplugin
+OK : C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\SatisfactoryBingo.Build.cs
+OK : C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Public\BingoTerminalWidget.h
+OK : C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Private\BingoTerminalWidget.cpp
+OK : C:\SatisfactoryReverse\SML\Mods\SatisfactoryBingo\Source\SatisfactoryBingo\Public\BingoGameData.h
+
+=== DEPENDANCES WEB DANS LE CODE ===
+
+=== FIN DU CONTROLE ===

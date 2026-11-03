@@ -1,0 +1,253 @@
+﻿Phase;Difficulte;Numero;Texte original;Remarque
+p1;facile;1;Avoir une production de plus de 100MW d'énergie;Condition à définir pour validation automatique
+p1;facile;2;Avoir une production de plus de 200MW d'énergie;Condition à définir pour validation automatique
+p1;facile;5;Construire un 2e constructeur pour un même gisement;Condition à définir pour validation automatique
+p1;facile;14;Construire une 2e fonderie pour un même gisement;Condition à définir pour validation automatique
+p1;facile;23;Explorer une grotte;Condition à définir pour validation automatique
+p1;facile;24;Explorer une zone côtière;Condition à définir pour validation automatique
+p1;difficile;6;Automatiser complètement la production de barres de fer;Condition à définir pour validation automatique
+p1;difficile;7;Automatiser la production de béton;Condition à définir pour validation automatique
+p1;difficile;8;Automatiser la production de câble;Condition à définir pour validation automatique
+p1;difficile;9;Automatiser la production de placâge intelligent sans intervention manuelle;Condition à définir pour validation automatique
+p1;difficile;10;Automatiser la production de plaque de fer renforcée;Condition à définir pour validation automatique
+p1;difficile;11;Automatiser une chaîne de fils électriques;Condition à définir pour validation automatique
+p1;difficile;12;Automatiser une chaîne de rotors;Condition à définir pour validation automatique
+p1;difficile;17;Construire un système de convoyeurs sans aucun croisement;Condition à définir pour validation automatique
+p1;difficile;19;Construire une base capable de tourner 15 min sans intervention;Condition à définir pour validation automatique
+p1;difficile;20;Construire une chaine de production sur fondations, sans aucun convoyeur au sol;Condition à définir pour validation automatique
+p1;difficile;23;Construire une usine capable de tourner 25 min sans intervention;Condition à définir pour validation automatique
+p1;difficile;24;Construire une usine sans aucun croisement de tapis visible;Condition à définir pour validation automatique
+p1;difficile;27;Explorer 2 grottes différentes dans la même session;Condition à définir pour validation automatique
+p1;difficile;28;Explorer une falaise abrupte pour trouver une électrolimace;Condition à définir pour validation automatique
+p1;difficile;29;Explorer une zone en altitude difficile d'accès;Condition à définir pour validation automatique
+p1;difficile;43;Traverser une grotte hostile sans perdre de vie;Condition à définir pour validation automatique
+p1;difficile;50;Vaincre un sanglier dans une grotte;Condition à définir pour validation automatique
+p1;hardcore;1;Automatiser 100% de votre production avant de livrer la phase 1;Condition à définir pour validation automatique
+p1;hardcore;2;Construire 2 bases de production reliées avant la phase 1;Condition à définir pour validation automatique
+p1;hardcore;3;Construire 200 placâge intelligent avant la phase 1;Condition à définir pour validation automatique
+p1;hardcore;6;Construire une base 100% autonome avant la phase 1;Condition à définir pour validation automatique
+p1;hardcore;8;Construire une usine capable de tourner 50 min sans intervention avant phase 1;Condition à définir pour validation automatique
+p1;hardcore;11;Explorer 5 grottes ou épaves avant de livrer la phase 1;Condition à définir pour validation automatique
+p1;hardcore;13;Livrer la phase 1 en solo, sans aucune aide extérieure;Condition à définir pour validation automatique
+p1;hardcore;15;Livrer la phase 1 sans acheter de pièce dans la boutique;Condition à définir pour validation automatique
+p1;hardcore;16;Livrer la phase 1 sans avoir jamais laissé un conteneur de stockage se remplir à 100%;Condition à définir pour validation automatique
+p1;hardcore;17;Livrer la phase 1 sans être mort;Condition à définir pour validation automatique
+p1;hardcore;18;Récupérer 10 électrolimaces avant la phase 1;Condition à définir pour validation automatique
+p1;hardcore;20;Terminer 100% des recherches MAM disponibles avant la phase 1;Condition à définir pour validation automatique
+p1;hardcore;21;Terminer la phase 1 sans avoir eu de coupue de courant;Condition à définir pour validation automatique
+p1;hardcore;22;Terminer la phase 1 sans jamais reconstruire un bâtiment détruit par erreur;Condition à définir pour validation automatique
+p1;malus;1;20 min sans ramasser de ressource à la main;Condition à définir pour validation automatique
+p1;malus;2;15 min sans construire de bâtiment;Condition à définir pour validation automatique
+p1;malus;3;15 min sans utiliser le pistolet;Condition à définir pour validation automatique
+p1;malus;4;20 min sans utiliser d'arme;Condition à définir pour validation automatique
+p1;malus;5;10 min sans consulter la carte;Condition à définir pour validation automatique
+p1;malus;6;15 min sans quitter la zone de départ;Condition à définir pour validation automatique
+p1;malus;7;20 min sans grimper avec des fondations/rampes;Condition à définir pour validation automatique
+p1;malus;8;10 min sans ramasser aucun objet au sol;Condition à définir pour validation automatique
+p1;malus;9;15 min sans utiliser l'établi;Condition à définir pour validation automatique
+p1;malus;10;20 min sans construire de générateur;Condition à définir pour validation automatique
+p1;malus;11;15 min sans utiliser de foreuse portable;Condition à définir pour validation automatique
+p1;malus;12;10 min sans ouvrir l'inventaire du HUB;Condition à définir pour validation automatique
+p1;malus;13;20 min sans poser de fondation;Condition à définir pour validation automatique
+p1;malus;14;15 min sans utiliser d'ascenseur vertical;Condition à définir pour validation automatique
+p1;malus;15;10 min sans traverser d'eau;Condition à définir pour validation automatique
+p2;facile;5;Avoir une production de plus de 1000MW d'énergie;Condition à définir pour validation automatique
+p2;facile;6;Avoir une production de plus de 2000MW d'énergie;Condition à définir pour validation automatique
+p2;facile;27;Explorer une caverne plus profonde;Condition à définir pour validation automatique
+p2;difficile;2;Atteindre 60 poutres d'acier/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p2;difficile;3;Atteindre 80 tuyaux d'acier/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p2;difficile;4;Automatiser 100% de votre production d'acier avant de livrer la phase 2;Condition à définir pour validation automatique
+p2;difficile;5;Automatiser complètement la production de poutre en béton armé;Condition à définir pour validation automatique
+p2;difficile;6;Automatiser la production de 80 bétons/min;Condition à définir pour validation automatique
+p2;difficile;7;Automatiser la production de cadre modulaire;Condition à définir pour validation automatique
+p2;difficile;8;Automatiser la production de câblage automatisé;Condition à définir pour validation automatique
+p2;difficile;9;Automatiser la production de câbles et fils;Condition à définir pour validation automatique
+p2;difficile;10;Automatiser la production de moteur;Condition à définir pour validation automatique
+p2;difficile;11;Automatiser une chaîne de plaques renforcées à 100%;Condition à définir pour validation automatique
+p2;difficile;24;Construire une base alimentée par 8 générateurs à charbon en parallèle;Condition à définir pour validation automatique
+p2;difficile;25;Construire une usine capable de tourner sans intervention;Condition à définir pour validation automatique
+p2;difficile;26;Construire une usine sans aucun croisement de tapis visible;Condition à définir pour validation automatique
+p2;difficile;33;Explorer 3 grottes ou zones dangereuses pour trouver des disques durs;Condition à définir pour validation automatique
+p2;difficile;34;Explorer une zone plus dangereuse pour trouver un disque dur rare;Condition à définir pour validation automatique
+p2;difficile;49;Vaincre un essaim complet d'écloseurs sans repli;Condition à définir pour validation automatique
+p2;hardcore;3;Automatiser 100% de la chaîne poutres en béton armé avant la phase 2;Condition à définir pour validation automatique
+p2;hardcore;4;Automatiser la production des 3 pièces de l'ascenseur;Condition à définir pour validation automatique
+p2;hardcore;6;Avoir une production de plus de 3000MW d'énergie;Condition à définir pour validation automatique
+p2;hardcore;9;Construire un réseau de tapis sans aucun croisement sur toute la base;Condition à définir pour validation automatique
+p2;hardcore;13;Construire une base capable de tenir 2h sans aucune panne de courant;Condition à définir pour validation automatique
+p2;hardcore;20;Livrer la phase 2 en solo, sans aucune aide extérieure;Condition à définir pour validation automatique
+p2;hardcore;21;Livrer la phase 2 sans être mort;Condition à définir pour validation automatique
+p2;hardcore;22;Relier toute la base à un seul réseau électrique sans coupure;Condition à définir pour validation automatique
+p2;hardcore;23;Terminer 100% des recherches MAM disponibles avant la phase 2;Condition à définir pour validation automatique
+p2;hardcore;25;Vaincre 5 sangliers alpha au total avant la phase 2;Condition à définir pour validation automatique
+p2;malus;1;20 min sans utiliser d'arme;Condition à définir pour validation automatique
+p2;malus;2;20 min sans utiliser les dékathlons;Condition à définir pour validation automatique
+p2;malus;3;15 min sans utiliser le tyrolienne;Condition à définir pour validation automatique
+p2;malus;4;20 min sans ramasser de ressource à la main;Condition à définir pour validation automatique
+p2;malus;5;20 min sans construire de machine;Condition à définir pour validation automatique
+p2;malus;6;10 min sans consulter la carte;Condition à définir pour validation automatique
+p2;malus;7;20 min sans construire de générateur;Condition à définir pour validation automatique
+p2;malus;8;15 min sans utiliser l'hypertube;Condition à définir pour validation automatique
+p2;malus;9;10 min sans ouvrir le MAM;Condition à définir pour validation automatique
+p2;malus;10;15 min sans utiliser de plateforme de saut;Condition à définir pour validation automatique
+p2;malus;11;20 min sans poser de fondation;Condition à définir pour validation automatique
+p2;malus;12;10 min sans ouvrir un plan;Condition à définir pour validation automatique
+p2;malus;13;15 min sans traverser d'eau;Condition à définir pour validation automatique
+p2;malus;14;20 min sans utiliser d'ascenseur vertical;Condition à définir pour validation automatique
+p2;malus;15;10 min sans reconstruire après une casse accidentelle;Condition à définir pour validation automatique
+p3;facile;1;Atterrir en douceur avec le jetpack ou un parachute;Condition à définir pour validation automatique
+p3;facile;2;Automatiser une chaîne de filactif simple;Condition à définir pour validation automatique
+p3;facile;6;Avoir une production de plus de 3000MW d'énergie;Condition à définir pour validation automatique
+p3;facile;7;Avoir une production de plus de 4000MW d'énergie;Condition à définir pour validation automatique
+p3;difficile;1;Atteindre 200 caoutchouc/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p3;difficile;2;Atteindre 200 plastique/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p3;difficile;3;Atteindre 30 moteur/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p3;difficile;4;Automatiser 100% de la chaîne cadre modulaire lourd;Condition à définir pour validation automatique
+p3;difficile;5;Automatiser 100% de la chaîne ordinateur ET circuit imprimé;Condition à définir pour validation automatique
+p3;difficile;6;Automatiser 100% de votre chaîne pétrole avant de livrer la phase 3;Condition à définir pour validation automatique
+p3;difficile;7;Automatiser la chaîne ordinateur à 100%;Condition à définir pour validation automatique
+p3;difficile;8;Automatiser la production de cadre modulaire lourd;Condition à définir pour validation automatique
+p3;difficile;9;Automatiser la production de circuit imprimé;Condition à définir pour validation automatique
+p3;difficile;10;Automatiser la production de filactif à haut débit;Condition à définir pour validation automatique
+p3;difficile;11;Automatiser la production de stator ET moteur en simultané;Condition à définir pour validation automatique
+p3;difficile;12;Automatiser la production de stator;Condition à définir pour validation automatique
+p3;difficile;13;Automatiser une chaîne de plastique ET caoutchouc à 100% en simultané;Condition à définir pour validation automatique
+p3;difficile;14;Avoir une production de plus de 5000MW d'énergie;Condition à définir pour validation automatique
+p3;difficile;24;Construire un train automatique sur boucle fermée sans intervention;Condition à définir pour validation automatique
+p3;difficile;28;Construire une usine sans aucun croisement de tapis visible;Condition à définir pour validation automatique
+p3;difficile;31;Explorer une zone légèrement radioactive avec précaution;Condition à définir pour validation automatique
+p3;hardcore;1;Automatiser 100% de la chaîne cadre modulaire lourd avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;2;Automatiser la production de nobelisks;Condition à définir pour validation automatique
+p3;hardcore;3;Avoir un stock de 30 bons FICSIT avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;4;Avoir une production de plus de 8000MW d'énergie;Condition à définir pour validation automatique
+p3;hardcore;7;Construire un réseau ferroviaire de 4 gares avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;8;Construire un stock de secours de 1000 cadre modulaire lourd avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;9;Construire un stockage centralisé pour toute la base avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;19;Livrer la phase 3 en solo, sans aucune aide extérieure;Condition à définir pour validation automatique
+p3;hardcore;20;Relier toute la base par chemin de fer avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;21;Terminer 100% des recherches MAM disponibles avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;23;Utiliser au moins 8 somersloops dans votre usine avant la phase 3;Condition à définir pour validation automatique
+p3;hardcore;25;Vaincre 5 araignées au total avant la phase 3;Condition à définir pour validation automatique
+p3;malus;1;20 min sans utiliser de véhicule;Condition à définir pour validation automatique
+p3;malus;2;15 min sans consommer de nutriment;Condition à définir pour validation automatique
+p3;malus;3;20 min sans utiliser le Train;Condition à définir pour validation automatique
+p3;malus;4;15 min sans utiliser d'arme;Condition à définir pour validation automatique
+p3;malus;5;20 min sans ramasser de ressource à la main;Condition à définir pour validation automatique
+p3;malus;6;15 min sans construire de bâtiment;Condition à définir pour validation automatique
+p3;malus;7;10 min sans consulter la carte;Condition à définir pour validation automatique
+p3;malus;8;20 min sans utiliser l'hypertube;Condition à définir pour validation automatique
+p3;malus;9;15 min sans utiliser le jetpack;Condition à définir pour validation automatique
+p3;malus;10;10 min sans ouvrir le MAM;Condition à définir pour validation automatique
+p3;malus;11;20 min sans utiliser de camion;Condition à définir pour validation automatique
+p3;malus;12;15 min sans utiliser le tyrolienne;Condition à définir pour validation automatique
+p3;malus;13;10 min sans traverser d'eau;Condition à définir pour validation automatique
+p3;malus;14;20 min sans poser de fondation;Condition à définir pour validation automatique
+p3;malus;15;15 min sans utiliser d'ascenseur vertical;Condition à définir pour validation automatique
+p4;facile;4;Atterrir en douceur avec l'hoverpack;Condition à définir pour validation automatique
+p4;facile;8;Avoir toujours un moyen de se soigner dans un emplacement de main;Condition à définir pour validation automatique
+p4;facile;9;Avoir une production de plus de 5000MW d'énergie;Condition à définir pour validation automatique
+p4;facile;10;Avoir une production de plus de 6000MW d'énergie;Condition à définir pour validation automatique
+p4;difficile;1;Atteindre 10 cadres modulaires fusionés/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p4;difficile;2;Atteindre 30 contrôleurs d'IA/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p4;difficile;3;Atteindre 30 systèmes de refroidissement/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p4;difficile;7;Atteindre 8 superordinateurs/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p4;difficile;8;Atteindre 8 turbomoteurs/min sur une chaîne automatisée;Condition à définir pour validation automatique
+p4;difficile;9;Automatiser 100% de votre chaîne aluminium avant de livrer la phase 4;Condition à définir pour validation automatique
+p4;difficile;10;Automatiser la production d'aluminium de bout en bout;Condition à définir pour validation automatique
+p4;difficile;11;Automatiser la production d'unité de commande radio;Condition à définir pour validation automatique
+p4;difficile;12;Automatiser la production de batterie;Condition à définir pour validation automatique
+p4;difficile;13;Automatiser la production de système directeur d'assemblage;Condition à définir pour validation automatique
+p4;difficile;14;Automatiser la production de turbomoteur;Condition à définir pour validation automatique
+p4;difficile;15;Avoir une production de plus de 10.000MW d'énergie;Condition à définir pour validation automatique
+p4;difficile;16;Avoir une production de plus de 12.000MW d'énergie;Condition à définir pour validation automatique
+p4;difficile;18;Construire un accélérateur de particules et l'automatiser;Condition à définir pour validation automatique
+p4;difficile;23;Construire une usine sans aucun croisement de tapis visible;Condition à définir pour validation automatique
+p4;difficile;25;Décoder 3 disques durs en zone radioactive avant la phase 4;Condition à définir pour validation automatique
+p4;difficile;27;Explorer une zone radioactive avec HAZMAT;Condition à définir pour validation automatique
+p4;difficile;28;Explorer une zone radioactive extrême avec HAZMAT;Condition à définir pour validation automatique
+p4;difficile;46;Vaincre 3 sangliers alpha ET 1 araignée alpha avant la phase 4;Condition à définir pour validation automatique
+p4;hardcore;1;Automatiser 100% de la chaîne système directeur d'assemblage avant la phase 4;Condition à définir pour validation automatique
+p4;hardcore;2;Avoir toujours une arme à distance dans un emplacement de main;Condition à définir pour validation automatique
+p4;hardcore;3;Avoir une production de plus de 20.000MW d'énergie;Condition à définir pour validation automatique
+p4;hardcore;4;Avoir une production de plus de 25.000MW d'énergie;Condition à définir pour validation automatique
+p4;hardcore;7;Construire un réseau ferroviaire de 6 gares avant la phase 4;Condition à définir pour validation automatique
+p4;hardcore;10;Construire une centrale nucléaire fonctionnant sans interruption;Condition à définir pour validation automatique
+p4;hardcore;12;Décoder 5 disques durs en zone radioactive avant la phase 4;Condition à définir pour validation automatique
+p4;hardcore;14;Faire fonctionner 2 centrales nucléaires en parallèle sans coupure;Condition à définir pour validation automatique
+p4;hardcore;16;Livrer la 4e phase de l'ascenseur orbital sans être mort;Condition à définir pour validation automatique
+p4;hardcore;17;Livrer la phase 4 en solo, sans aucune aide extérieure;Condition à définir pour validation automatique
+p4;hardcore;21;Terminer 100% des recherches MAM disponibles avant la phase 4;Condition à définir pour validation automatique
+p4;hardcore;25;Vaincre 10 sangliers alpha au total avant la phase 4;Condition à définir pour validation automatique
+p4;malus;1;30 min sans utiliser l'hypertube;Condition à définir pour validation automatique
+p4;malus;2;20 min sans ouvrir le MAM ni le HUB;Condition à définir pour validation automatique
+p4;malus;3;20 min en zone radioactive sans combinaison HAZMAT;Condition à définir pour validation automatique
+p4;malus;4;15 min sans utiliser d'arme;Condition à définir pour validation automatique
+p4;malus;5;20 min sans utiliser de véhicule;Condition à définir pour validation automatique
+p4;malus;6;15 min sans consommer de nutriment;Condition à définir pour validation automatique
+p4;malus;7;20 min sans utiliser de port de drone;Condition à définir pour validation automatique
+p4;malus;8;15 min sans ramasser de ressource à la main;Condition à définir pour validation automatique
+p4;malus;9;20 min sans construire de bâtiment;Condition à définir pour validation automatique
+p4;malus;10;10 min sans consulter la carte;Condition à définir pour validation automatique
+p4;malus;11;20 min sans utiliser de camion;Condition à définir pour validation automatique
+p4;malus;12;15 min sans utiliser le jetpack;Condition à définir pour validation automatique
+p4;malus;13;10 min sans traverser d'eau;Condition à définir pour validation automatique
+p4;malus;14;20 min sans poser de fondation;Condition à définir pour validation automatique
+p4;malus;15;15 min sans utiliser le Train;Condition à définir pour validation automatique
+p5;facile;3;Automatiser la chaine de cristal temporel;Condition à définir pour validation automatique
+p5;facile;4;Automatiser la chaine de diamants;Condition à définir pour validation automatique
+p5;facile;5;Automatiser la chaine de lingots de Ficsite;Condition à définir pour validation automatique
+p5;facile;6;Automatiser la chaine de trigones de Ficsite;Condition à définir pour validation automatique
+p5;facile;7;Automatiser la chaîne de pâtes nucléaires;Condition à définir pour validation automatique
+p5;facile;8;Automatiser une chaîne simple de diamants;Condition à définir pour validation automatique
+p5;facile;12;Avoir une production de plus de 12.000MW d'énergie;Condition à définir pour validation automatique
+p5;facile;13;Avoir une production de plus de 15.000MW d'énergie;Condition à définir pour validation automatique
+p5;facile;21;Explorer une zone jamais visitée de la carte;Condition à définir pour validation automatique
+p5;difficile;2;Atteindre 90 diamants/min avec 2 chaînes en parallèle;Condition à définir pour validation automatique
+p5;difficile;4;Automatiser 100% de la chaîne cellule de singularité ET cristal de matière noire;Condition à définir pour validation automatique
+p5;difficile;5;Automatiser 100% de la chaîne diamants ET cristal temporel en simultané;Condition à définir pour validation automatique
+p5;difficile;6;Automatiser 100% de la chaîne unité de contrôle adaptatif ET processeur neuro-quantique;Condition à définir pour validation automatique
+p5;difficile;7;Automatiser la chaîne de sculpteur biochimique;Condition à définir pour validation automatique
+p5;difficile;8;Automatiser la production d'unité de contrôle adaptatif;Condition à définir pour validation automatique
+p5;difficile;9;Automatiser la production de barre de combustible au Ficsonium;Condition à définir pour validation automatique
+p5;difficile;10;Automatiser la production de cellule de singularité;Condition à définir pour validation automatique
+p5;difficile;11;Automatiser la production de cristal de matière noire;Condition à définir pour validation automatique
+p5;difficile;12;Automatiser la production de cristal temporel;Condition à définir pour validation automatique
+p5;difficile;13;Automatiser la production de poudre de cuivre pour la chaîne phase 5;Condition à définir pour validation automatique
+p5;difficile;14;Automatiser la production de processeur neuro-quantique;Condition à définir pour validation automatique
+p5;difficile;15;Automatiser la production de trigone de Ficsite;Condition à définir pour validation automatique
+p5;difficile;16;Automatiser une chaîne complète d'encodage quantique;Condition à définir pour validation automatique
+p5;difficile;18;Avoir une production de plus de 28.000MW d'énergie;Condition à définir pour validation automatique
+p5;difficile;19;Avoir une production de plus de 30.000MW d'énergie;Condition à définir pour validation automatique
+p5;difficile;31;Construire une usine sans aucun croisement de tapis visible;Condition à définir pour validation automatique
+p5;difficile;34;Explorer les zones les plus reculées de la carte pour les derniers collectibles;Condition à définir pour validation automatique
+p5;difficile;42;Recycler 100% des déchets nucléaires produits sans jamais déborder;Condition à définir pour validation automatique
+p5;difficile;46;Terminer l'arbre du MAM à 100%;Condition à définir pour validation automatique
+p5;hardcore;1;Atteindre 100% d'efficacité sur toutes vos chaînes de production avant la fin;Condition à définir pour validation automatique
+p5;hardcore;2;Automatiser 100% de votre chaîne pâtes nucléaires avant la phase 5;Condition à définir pour validation automatique
+p5;hardcore;3;Automatiser la production de Ficsonium;Condition à définir pour validation automatique
+p5;hardcore;5;Avoir une production de plus de 32.000MW d'énergie;Condition à définir pour validation automatique
+p5;hardcore;6;Avoir une production de plus de 35.000MW d'énergie;Condition à définir pour validation automatique
+p5;hardcore;10;Construire une base capable de tourner indéfiniment sans aucune intervention;Condition à définir pour validation automatique
+p5;hardcore;11;Construire une base sans aucun broyeur;Condition à définir pour validation automatique
+p5;hardcore;13;Construire une usine 100% automatisée sans conteneur de stockage;Condition à définir pour validation automatique
+p5;hardcore;14;Explorer 100% de la carte pour les derniers électrolimaces et sphères de Mercer;Condition à définir pour validation automatique
+p5;hardcore;17;Livrer la phase 5 en solo, sans aucune aide extérieure;Condition à définir pour validation automatique
+p5;hardcore;18;Livrer la phase 5 sans être mort;Condition à définir pour validation automatique
+p5;hardcore;21;Recycler 100% de vos déchets nucléaires ET de votre résidu de matière noire;Condition à définir pour validation automatique
+p5;hardcore;22;Terminer 100% des recherches MAM avant de livrer la phase 5;Condition à définir pour validation automatique
+p5;hardcore;24;Terminer le jeu sans avoir englouti la moindre ressource inutile dans un broyeur;Condition à définir pour validation automatique
+p5;malus;1;30 min sans ouvrir le MAM ni le HUB;Condition à définir pour validation automatique
+p5;malus;2;20 min sans consulter aucune carte;Condition à définir pour validation automatique
+p5;malus;3;30 min sans utiliser de portail;Condition à définir pour validation automatique
+p5;malus;4;20 min sans utiliser de véhicule;Condition à définir pour validation automatique
+p5;malus;5;15 min sans consommer de nutriment;Condition à définir pour validation automatique
+p5;malus;6;20 min sans utiliser de port de drone ou de train;Condition à définir pour validation automatique
+p5;malus;7;15 min sans ramasser de ressource à la main;Condition à définir pour validation automatique
+p5;malus;8;20 min sans construire de bâtiment;Condition à définir pour validation automatique
+p5;malus;9;15 min sans utiliser l'hypertube;Condition à définir pour validation automatique
+p5;malus;10;10 min sans utiliser le jetpack;Condition à définir pour validation automatique
+p5;malus;11;20 min sans utiliser de camion;Condition à définir pour validation automatique
+p5;malus;12;15 min sans traverser d'eau;Condition à définir pour validation automatique
+p5;malus;13;20 min sans poser de fondation;Condition à définir pour validation automatique
+p5;malus;14;10 min sans utiliser d'ascenseur vertical;Condition à définir pour validation automatique
+p5;malus;15;15 min sans reconstruire après une casse accidentelle;Condition à définir pour validation automatique

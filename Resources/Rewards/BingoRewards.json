@@ -1,0 +1,74 @@
+﻿{
+    "SchemaVersion":  1,
+    "Mod":  "SatisfactoryBingo",
+    "Currency":  "BingoPoints",
+    "PurchaseRequiresSufficientPoints":  true,
+    "DeductPointsOnlyAfterSuccessfulEffect":  true,
+    "PersistPurchases":  true,
+    "Rewards":  [
+                    {
+                        "Id":  "SurvivalKit",
+                        "Name":  "Kit de survie FICSIT",
+                        "Cost":  10,
+                        "Type":  "InventoryItems",
+                        "Effect":  "Ajouter un lot defini de materiaux a l\u0027inventaire",
+                        "Implemented":  false
+                    },
+                    {
+                        "Id":  "SupplyDrop",
+                        "Name":  "Ravitaillement FICSIT",
+                        "Cost":  20,
+                        "Type":  "InventoryItems",
+                        "Effect":  "Donner un lot de ressources predefini",
+                        "Implemented":  false
+                    },
+                    {
+                        "Id":  "BingoHint",
+                        "Name":  "Indice confidentiel",
+                        "Cost":  15,
+                        "Type":  "BingoAction",
+                        "Effect":  "Afficher un indice pour un defi",
+                        "Implemented":  false
+                    },
+                    {
+                        "Id":  "RerollChallenge",
+                        "Name":  "Nouvelle directive",
+                        "Cost":  20,
+                        "Type":  "BingoAction",
+                        "Effect":  "Remplacer un defi eligible",
+                        "Implemented":  false
+                    },
+                    {
+                        "Id":  "DoublePoints",
+                        "Name":  "Prime de productivite",
+                        "Cost":  25,
+                        "Type":  "BingoBonus",
+                        "Effect":  "Doubler les points du prochain defi eligible",
+                        "Implemented":  false
+                    },
+                    {
+                        "Id":  "MalusShield",
+                        "Name":  "Bouclier anti-malus",
+                        "Cost":  30,
+                        "Type":  "BingoBonus",
+                        "Effect":  "Annuler le prochain malus eligible",
+                        "Implemented":  false
+                    },
+                    {
+                        "Id":  "BonusContract",
+                        "Name":  "Contrat supplementaire",
+                        "Cost":  40,
+                        "Type":  "BingoAction",
+                        "Effect":  "Accorder un objectif bonus",
+                        "Implemented":  false
+                    },
+                    {
+                        "Id":  "FicsitLottery",
+                        "Name":  "Loterie FICSIT",
+                        "Cost":  50,
+                        "Type":  "RandomReward",
+                        "Effect":  "Tirer une recompense dans une liste autorisee",
+                        "Implemented":  false
+                    }
+                ]
+}

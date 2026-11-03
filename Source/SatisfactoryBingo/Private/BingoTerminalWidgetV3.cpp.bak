@@ -1,0 +1,1507 @@
+#include "BingoTerminalWidgetV3.h"
+#include "BingoRewards.h"
+#include "Components/ScrollBox.h"
+#include "Components/VerticalBox.h"
+#include "Components/HorizontalBox.h"
+#include "Components/SizeBox.h"
+// BINGO_V3_INPUT_AND_SELECTION_01
+namespace
+{
+    TMap<TWeakObjectPtr<APlayerController>, int32>
+        GBingoV3SelectedCells;
+}
+#include "InputCoreTypes.h"
+#include "FGInputLibrary.h"
+#include "UI/FGGameUI.h"
+#include "FGPlayerController.h"
+#include "Engine/Texture2D.h"
+#include "UObject/SoftObjectPath.h"
+#include "Components/Overlay.h"
+#include "Components/OverlaySlot.h"
+#include "Blueprint/WidgetTree.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/ScaleBox.h"
+#include "Components/SizeBox.h"
+#include "Components/Image.h"
+#include "Components/Button.h"
+#include "Components/Overlay.h"
+#include "Components/OverlaySlot.h"
+#include "Components/TextBlock.h"
+#include "Components/ProgressBar.h"
+#include "BingoSubsystem.h"
+#include "BingoGameData.h"
+#include "EngineUtils.h"
+#include "Engine/Texture2D.h"
+#include "Styling/SlateTypes.h"
+
+namespace
+{
+    constexpr float W = 1674.f;
+    constexpr float H = 939.f;
+    const FLinearColor Orange(1.f, .55f, .10f, 1.f);
+    const FLinearColor White(.96f, .96f, .96f, 1.f);
+    UTexture2D* LoadV3Texture(const TCHAR* Name)
+    {
+        const FString AssetName(Name);
+        const FString Folder =
+            AssetName == TEXT("T_Bingo_Cadre_FICSIT")
+                ? TEXT("Textures")
+                : TEXT("V3Textures");
+        const FString Path = FString::Printf(
+            TEXT("/SatisfactoryBingo/Bingo/UI/%s/%s.%s"),
+            *Folder, Name, Name);
+        return LoadObject<UTexture2D>(nullptr, *Path);
+    }
+    void Place(UCanvasPanel* Canvas, UWidget* Child, float X, float Y, float Width, float Height, int32 Z = 0)
+    {
+        UCanvasPanelSlot* S = Canvas->AddChildToCanvas(Child);
+        S->SetAutoSize(false);
+        S->SetPosition(FVector2D(X, Y));
+        S->SetSize(FVector2D(Width, Height));
+        S->SetZOrder(Z);
+    }
+    UImage* Image(UWidgetTree* Tree, const TCHAR* Name)
+    {
+        UImage* Result = Tree->ConstructWidget<UImage>(UImage::StaticClass());
+        if (UTexture2D* Texture = LoadV3Texture(Name)) Result->SetBrushFromTexture(Texture, false);
+        return Result;
+    }
+    UTextBlock* Text(UWidgetTree* Tree, const FString& Value, int32 Size, FLinearColor Color)
+    {
+        UTextBlock* Result = Tree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass());
+        Result->SetText(FText::FromString(Value));
+        Result->SetColorAndOpacity(FSlateColor(Color));
+        FSlateFontInfo Font = Result->GetFont();
+        Font.Size = Size;
+        Result->SetFont(Font);
+        Result->SetJustification(ETextJustify::Center);
+        return Result;
+    }
+    UButton* TexturedButton(UWidgetTree* Tree, const TCHAR* TextureName, const FString& Label, int32 FontSize)
+    {
+        UButton* Button = Tree->ConstructWidget<UButton>(UButton::StaticClass());
+        FButtonStyle Style = Button->GetStyle();
+        Style.Normal.TintColor = FSlateColor(FLinearColor::White);
+        Style.Hovered.TintColor = FSlateColor(FLinearColor::White);
+        Style.Pressed.TintColor = FSlateColor(FLinearColor::White);
+        Button->SetStyle(Style);
+        UOverlay* Overlay = Tree->ConstructWidget<UOverlay>(UOverlay::StaticClass());
+        UOverlaySlot* Art = Overlay->AddChildToOverlay(Image(Tree, TextureName));
+        Art->SetHorizontalAlignment(HAlign_Fill);
+        Art->SetVerticalAlignment(VAlign_Fill);
+        UOverlaySlot* Caption = Overlay->AddChildToOverlay(Text(Tree, Label, FontSize, White));
+        Caption->SetHorizontalAlignment(HAlign_Center);
+        Caption->SetVerticalAlignment(VAlign_Center);
+        Button->AddChild(Overlay);
+        return Button;
+    }
+}
+
+TSharedRef<SWidget> UBingoTerminalWidgetV3::RebuildWidget()
+{
+    if (WidgetTree && !WidgetTree->RootWidget) BuildInterface();
+    return Super::RebuildWidget();
+}
+
+void UBingoTerminalWidgetV3::BuildInterface()
+{
+    if (!WidgetTree) return;
+    UScaleBox* Scale = WidgetTree->ConstructWidget<UScaleBox>(UScaleBox::StaticClass(), TEXT("BingoV3Scale"));
+    Scale->SetStretch(EStretch::ScaleToFit);
+    WidgetTree->RootWidget = Scale;
+    USizeBox* Size = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass(), TEXT("BingoV3Reference1674x939"));
+    Size->SetWidthOverride(W);
+    Size->SetHeightOverride(H);
+    Scale->AddChild(Size);
+    Canvas = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass(), TEXT("BingoV3Canvas"));
+    Size->AddChild(Canvas);
+
+        // BINGO_V3_BACKGROUND_FIX_4T
+    Place(
+        Canvas,
+        Image(WidgetTree, TEXT("Fond_Cadre_Sans_Elements")),
+        0, 0, W, H, 0
+    );
+        // BINGO_V3_BACKGROUND_FIX_4V
+    Place(Canvas, Image(WidgetTree, TEXT("Fond_Cadre_Sans_Elements")), 0, 0, W, H, 0);
+    Place(Canvas, Image(WidgetTree, TEXT("T_Bingo_Cadre_FICSIT")), 0, 0, W, H, 1);
+    Place(Canvas, Image(WidgetTree, TEXT("Panneau_Gauche_Fond")), 115, 216, 365, 580, 1);
+    Place(Canvas, Image(WidgetTree, TEXT("Panneau_Droit_Fond")), 1174, 216, 346, 465, 1);
+
+    UButton* BingoTab = TexturedButton(WidgetTree, TEXT("Onglet_Orange"), TEXT("BINGO"), 28);
+    Place(Canvas, BingoTab, 173, 117, 408, 62, 5);
+    BingoTab->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::ShowBingoTab);
+    UButton* RewardsTab = TexturedButton(WidgetTree, TEXT("Onglet_Gris"), TEXT("RECOMPENSES"), 26);
+    Place(Canvas, RewardsTab, 600, 117, 380, 62, 5);
+    RewardsTab->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::ShowRewardsTab);
+
+    // BINGO_V3_PHASE_BUTTONS_01
+    // Affichage uniquement : ne modifie jamais CurrentPhase.
+    for (int32 PhaseIndex = 0; PhaseIndex < 5; ++PhaseIndex)
+    {
+        const FString Label = FString::Printf(
+            TEXT("%d"),
+            PhaseIndex + 1
+        );
+
+        UButton* PhaseButton = TexturedButton(
+            WidgetTree,
+            PhaseIndex == 0 ? TEXT("Onglet_Orange") : TEXT("Onglet_Gris"),
+            Label,
+            17
+        );
+
+        Place(
+            Canvas,
+            PhaseButton,
+            140.f + PhaseIndex * 65.f,
+            295.f,
+            62.f,
+            34.f,
+            7
+        );
+
+        // Les phases suivantes restent non interactives
+        // jusqu'au branchement des donnees reelles.
+        PhaseButton->SetIsEnabled(true);
+        PhaseButtons.Add(PhaseButton);
+
+        switch (PhaseIndex)
+        {
+        case 0:
+            PhaseButton->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::SelectPhase1);
+            break;
+        case 1:
+            PhaseButton->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::SelectPhase2);
+            break;
+        case 2:
+            PhaseButton->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::SelectPhase3);
+            break;
+        case 3:
+            PhaseButton->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::SelectPhase4);
+            break;
+        case 4:
+            PhaseButton->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::SelectPhase5);
+            break;
+        }
+    }
+    PointsText = Text(WidgetTree, TEXT("POINTS BINGO : --"), 25, Orange);
+    Place(Canvas, PointsText, 1210, 132, 290, 42, 6);
+    PhaseText = Text(WidgetTree, TEXT("PHASE 1 / 5"), 29, White);
+    Place(Canvas, PhaseText, 135, 230, 310, 50, 6);
+
+    ProgressText = Text(
+        WidgetTree,
+        TEXT("PROGRESSION : 0 / 25"),
+        22,
+        White
+    );
+    Place(Canvas, ProgressText, 135, 355, 310, 35, 6);
+
+    ProgressBar = WidgetTree->ConstructWidget<UProgressBar>(
+        UProgressBar::StaticClass(),
+        TEXT("BingoV3ProgressBar")
+    );
+
+    ProgressBar->SetPercent(0.0f);
+    ProgressBar->SetFillColorAndOpacity(Orange);
+
+    Place(Canvas, ProgressBar, 140, 410, 315, 22, 6);
+    for (int32 I = 0; I < 25; ++I)
+    {
+        UButton* Cell = TexturedButton(WidgetTree, TEXT("Case_Normale"), FString::Printf(TEXT("%02d"), I + 1), 23);
+        Place(Canvas, Cell, 502.f + (I % 5) * 132.f, 215.f + (I / 5) * 122.f, 116, 112, 3);
+        Cells.Add(Cell);
+
+        if (UOverlay* Overlay = Cast<UOverlay>(Cell->GetContent()))
+        {
+            UTextBlock* Label = nullptr;
+
+            for (UPanelSlot* PanelSlot : Overlay->GetSlots())
+            {
+                if (UTextBlock* TextWidget =
+                    Cast<UTextBlock>(PanelSlot->Content))
+                {
+                    Label = TextWidget;
+                    break;
+                }
+            }
+
+            CellLabels.Add(Label);
+        }
+        else
+        {
+            CellLabels.Add(nullptr);
+        }
+            // BINGO_V3_BIND_25_CELLS_01
+            switch (I)
+            {
+            case 0: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked0); break;
+            case 1: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked1); break;
+            case 2: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked2); break;
+            case 3: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked3); break;
+            case 4: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked4); break;
+            case 5: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked5); break;
+            case 6: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked6); break;
+            case 7: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked7); break;
+            case 8: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked8); break;
+            case 9: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked9); break;
+            case 10: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked10); break;
+            case 11: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked11); break;
+            case 12: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked12); break;
+            case 13: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked13); break;
+            case 14: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked14); break;
+            case 15: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked15); break;
+            case 16: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked16); break;
+            case 17: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked17); break;
+            case 18: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked18); break;
+            case 19: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked19); break;
+            case 20: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked20); break;
+            case 21: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked21); break;
+            case 22: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked22); break;
+            case 23: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked23); break;
+            case 24: Cell->OnClicked.AddDynamic(this, &UBingoTerminalWidgetV3::OnCellClicked24); break;
+            default: break;
+            }
+    }
+    DetailsText = Text(WidgetTree, TEXT("SELECTIONNEZ UN DEFI"), 23, White);
+    Place(Canvas, DetailsText, 1195, 295, 315, 140, 5);
+
+    UTextBlock* RewardTitle = Text(WidgetTree, TEXT("CATALOGUE DES RECOMPENSES"), 32, Orange);
+    Place(Canvas, RewardTitle, 540, 260, 590, 65, 7);
+    RewardControls.Add(RewardTitle);
+    // BINGO_V3_REWARD_CATALOGUE_01
+    UScrollBox* RewardScroll = WidgetTree->ConstructWidget<UScrollBox>(
+        UScrollBox::StaticClass(),
+        TEXT("BingoV3RewardScroll")
+    );
+
+    Place(Canvas, RewardScroll, 505, 335, 650, 475, 8);
+    RewardControls.Add(RewardScroll);
+
+    UVerticalBox* RewardList = WidgetTree->ConstructWidget<UVerticalBox>(
+        UVerticalBox::StaticClass(),
+        TEXT("BingoV3RewardList")
+    );
+
+    RewardScroll->AddChild(RewardList);
+
+    // BINGO_V3_REWARD_PHASE_FILTER_01
+    // Les boutons de phase existants seront reutilises.
+    // BINGO_V3_REWARD_PHASE_BUTTONS_01
+    for (int32 PhaseIndex = 0; PhaseIndex < 5; ++PhaseIndex)
+    {
+        UButton* RewardPhaseButton = TexturedButton(
+            WidgetTree,
+            TEXT("Onglet_Gris"),
+            *FString::Printf(TEXT("P%d"), PhaseIndex + 1),
+            20
+        );
+
+        Place(
+            Canvas,
+            RewardPhaseButton,
+            515.0f + PhaseIndex * 126.0f,
+            285.0f,
+            112.0f,
+            42.0f,
+            9
+        );
+
+        RewardPhaseButtons.Add(RewardPhaseButton);
+
+        switch (PhaseIndex)
+        {
+        case 0:
+            RewardPhaseButton->OnClicked.AddDynamic(
+                this, &UBingoTerminalWidgetV3::SelectRewardPhase1);
+            break;
+        case 1:
+            RewardPhaseButton->OnClicked.AddDynamic(
+                this, &UBingoTerminalWidgetV3::SelectRewardPhase2);
+            break;
+        case 2:
+            RewardPhaseButton->OnClicked.AddDynamic(
+                this, &UBingoTerminalWidgetV3::SelectRewardPhase3);
+            break;
+        case 3:
+            RewardPhaseButton->OnClicked.AddDynamic(
+                this, &UBingoTerminalWidgetV3::SelectRewardPhase4);
+            break;
+        case 4:
+            RewardPhaseButton->OnClicked.AddDynamic(
+                this, &UBingoTerminalWidgetV3::SelectRewardPhase5);
+            break;
+        }
+
+        RewardPhaseButton->SetVisibility(
+            ESlateVisibility::Collapsed
+        );
+    }
+
+    const TArray<FBingoRewardDefinition> Rewards = FBingoRewards::GetAll();
+
+    for (const FBingoRewardDefinition& Reward : Rewards)
+    {
+        UHorizontalBox* RewardRow = WidgetTree->ConstructWidget<UHorizontalBox>(
+            UHorizontalBox::StaticClass()
+        );
+
+        RewardList->AddChild(RewardRow);
+
+        RewardRows.Add(RewardRow);
+        RewardRowPhases.Add(Reward.RequiredPhase);
+
+        const FString RewardLabel = FString::Printf(
+            TEXT("%s  |  %d POINTS  |  PHASE %d"),
+            *Reward.Name,
+            Reward.Cost,
+            Reward.RequiredPhase
+        );
+
+        UTextBlock* RewardText = Text(
+            WidgetTree,
+            *RewardLabel,
+            17,
+            White
+        );
+
+        RewardRow->AddChild(RewardText);
+
+        // BINGO_V3_REWARD_BUY_BUTTONS_4P
+        // Bouton visuel uniquement : aucun achat execute.
+        UButton* BuyButton = TexturedButton(
+            WidgetTree,
+            TEXT("Onglet_Orange"),
+            TEXT("ACHETER"),
+            16
+        );
+
+        BuyButton->SetIsEnabled(false);
+
+        USizeBox* BuySize = WidgetTree->ConstructWidget<USizeBox>(
+            USizeBox::StaticClass()
+        );
+
+        BuySize->SetWidthOverride(145.0f);
+        BuySize->SetHeightOverride(40.0f);
+        BuySize->AddChild(BuyButton);
+
+        RewardRow->AddChild(BuySize);
+
+        RewardBuyButtons.Add(BuyButton);
+        RewardBuyCosts.Add(Reward.Cost);
+        RewardBuyPhases.Add(Reward.RequiredPhase);
+
+        USizeBox* RowSpacer = WidgetTree->ConstructWidget<USizeBox>(
+            USizeBox::StaticClass()
+        );
+
+        RowSpacer->SetHeightOverride(42.0f);
+        RewardList->AddChild(RowSpacer);
+    }
+    // BINGO_V3_CHALLENGE_PROGRESS_01
+
+    ChallengeProgressText = Text(
+        WidgetTree,
+        TEXT("SELECTIONNEZ UN DEFI"),
+        20,
+        White
+    );
+
+    Place(
+        Canvas,
+        ChallengeProgressText,
+        1195, 470, 315, 55, 8
+    );
+
+    ChallengeProgressBar = WidgetTree->ConstructWidget<UProgressBar>(
+        UProgressBar::StaticClass(),
+        TEXT("BingoV3ChallengeProgress")
+    );
+
+    ChallengeProgressBar->SetPercent(0.0f);
+    ChallengeProgressBar->SetFillColorAndOpacity(Orange);
+
+    Place(
+        Canvas,
+        ChallengeProgressBar,
+        1200, 545, 300, 22, 8
+    );
+    ShowBingoTab();
+}
+
+void UBingoTerminalWidgetV3::SelectPhase1()
+{
+    SelectDisplayedPhase(1);
+}
+
+void UBingoTerminalWidgetV3::SelectPhase2()
+{
+    SelectDisplayedPhase(2);
+}
+
+void UBingoTerminalWidgetV3::SelectPhase3()
+{
+    SelectDisplayedPhase(3);
+}
+
+void UBingoTerminalWidgetV3::SelectPhase4()
+{
+    SelectDisplayedPhase(4);
+}
+
+void UBingoTerminalWidgetV3::SelectPhase5()
+{
+    SelectDisplayedPhase(5);
+}
+
+void UBingoTerminalWidgetV3::SelectDisplayedPhase(int32 NewPhase)
+{
+    UWorld* World = GetWorld();
+    if (!World) return;
+
+    for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+    {
+        ABingoSubsystem* Subsystem = *It;
+        if (!IsValid(Subsystem)) continue;
+
+        UBingoGameData* Data = Subsystem->GetBingoGameData();
+        if (!IsValid(Data)) return;
+
+        const int32 PhaseIndex = NewPhase - 1;
+
+        if (!Data->Phases.IsValidIndex(PhaseIndex))
+            return;
+
+        if (NewPhase > Data->CurrentPhase)
+            return;
+
+        DisplayedPhase = NewPhase;
+        SelectedCellIndex = INDEX_NONE;
+
+        RefreshBingoProgress();
+        RefreshCellStates();
+        RefreshChallengeLabels();
+        RefreshChallengeProgress();
+
+        return;
+    }
+}
+void UBingoTerminalWidgetV3::ShowBingoTab()
+{
+    for (UButton* Button : RewardPhaseButtons)
+        if (Button) Button->SetVisibility(ESlateVisibility::Collapsed);
+    for (UButton* PhaseButton : PhaseButtons)
+        if (PhaseButton) PhaseButton->SetVisibility(ESlateVisibility::Visible);
+
+    for (UButton* Cell : Cells)
+        if (Cell) Cell->SetVisibility(ESlateVisibility::Visible);
+
+    if (PhaseText) PhaseText->SetVisibility(ESlateVisibility::Visible);
+    if (DetailsText) DetailsText->SetVisibility(ESlateVisibility::Visible);
+    if (ProgressText) ProgressText->SetVisibility(ESlateVisibility::Visible);
+    if (ProgressBar) ProgressBar->SetVisibility(ESlateVisibility::Visible);
+    if (ChallengeProgressText) ChallengeProgressText->SetVisibility(ESlateVisibility::Visible);
+    if (ChallengeProgressBar) ChallengeProgressBar->SetVisibility(ESlateVisibility::Visible);
+
+    for (UWidget* Control : RewardControls)
+        if (Control) Control->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UBingoTerminalWidgetV3::SelectRewardPhase(int32 NewPhase)
+{
+    // Consultation uniquement : ne change pas CurrentPhase.
+    DisplayedRewardPhase = FMath::Clamp(NewPhase, 1, 5);
+    RefreshRewardPhase();
+}
+
+void UBingoTerminalWidgetV3::SelectRewardPhase1()
+{
+    SelectRewardPhase(1);
+}
+
+void UBingoTerminalWidgetV3::SelectRewardPhase2()
+{
+    SelectRewardPhase(2);
+}
+
+void UBingoTerminalWidgetV3::SelectRewardPhase3()
+{
+    SelectRewardPhase(3);
+}
+
+void UBingoTerminalWidgetV3::SelectRewardPhase4()
+{
+    SelectRewardPhase(4);
+}
+
+void UBingoTerminalWidgetV3::SelectRewardPhase5()
+{
+    SelectRewardPhase(5);
+}
+// BINGO_V3_REWARD_PHASE_STATUS_01
+void UBingoTerminalWidgetV3::RefreshRewardPhase()
+{
+    int32 UnlockedPhase = 1;
+
+    if (UWorld* World = GetWorld())
+    {
+        for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+        {
+            if (IsValid(*It))
+            {
+                if (UBingoGameData* Data = It->GetBingoGameData())
+                {
+                    UnlockedPhase = FMath::Clamp(
+                        Data->CurrentPhase, 1, 5
+                    );
+                }
+                break;
+            }
+        }
+    }
+
+    for (int32 Index = 0; Index < RewardPhaseButtons.Num(); ++Index)
+    {
+        UButton* Button = RewardPhaseButtons[Index];
+        if (!IsValid(Button)) continue;
+
+        const int32 Phase = Index + 1;
+        const bool bSelected = Phase == DisplayedRewardPhase;
+        const bool bUnlocked = Phase <= UnlockedPhase;
+
+        Button->SetBackgroundColor(
+            bSelected
+                ? FLinearColor(1.0f, 0.45f, 0.05f, 1.0f)
+                : bUnlocked
+                    ? FLinearColor(0.35f, 0.35f, 0.35f, 1.0f)
+                    : FLinearColor(0.12f, 0.12f, 0.12f, 1.0f)
+        );
+    }
+
+    const int32 Count = FMath::Min(
+        RewardRows.Num(),
+        RewardRowPhases.Num()
+    );
+
+    for (int32 Index = 0; Index < Count; ++Index)
+    {
+        if (!RewardRows[Index]) continue;
+
+        RewardRows[Index]->SetVisibility(
+            RewardRowPhases[Index] == DisplayedRewardPhase
+                ? ESlateVisibility::Visible
+                : ESlateVisibility::Collapsed
+        );
+    }
+}
+void UBingoTerminalWidgetV3::ShowRewardsTab()
+{
+    for (UButton* Button : RewardPhaseButtons)
+        if (Button) Button->SetVisibility(ESlateVisibility::Visible);
+    DisplayedRewardPhase = FMath::Clamp(
+        DisplayedRewardPhase, 1, 5
+    );
+
+    RefreshRewardPhase();
+    for (UButton* PhaseButton : PhaseButtons)
+        if (PhaseButton) PhaseButton->SetVisibility(ESlateVisibility::Collapsed);
+
+    for (UButton* Cell : Cells)
+        if (Cell) Cell->SetVisibility(ESlateVisibility::Collapsed);
+
+    if (PhaseText) PhaseText->SetVisibility(ESlateVisibility::Collapsed);
+    if (DetailsText) DetailsText->SetVisibility(ESlateVisibility::Collapsed);
+    if (ProgressText) ProgressText->SetVisibility(ESlateVisibility::Collapsed);
+    if (ProgressBar) ProgressBar->SetVisibility(ESlateVisibility::Collapsed);
+    if (ChallengeProgressText) ChallengeProgressText->SetVisibility(ESlateVisibility::Collapsed);
+    if (ChallengeProgressBar) ChallengeProgressBar->SetVisibility(ESlateVisibility::Collapsed);
+
+    for (UWidget* Control : RewardControls)
+        if (Control) Control->SetVisibility(ESlateVisibility::Visible);
+}
+
+void UBingoTerminalWidgetV3::NativeConstruct()
+{
+    ChallengeDisplayedProgress = 0.0f;
+    ChallengeTargetProgress = 0.0f;
+    LoadCellTextures();
+    Super::NativeConstruct();
+
+    DisplayedProgress = 0.0f;
+    TargetProgress = 0.0f;
+    RefreshElapsed = 0.0f;
+    CellAnimationValues.Init(1.0f, 25);
+    CellAnimationTargets.Init(1.0f, 25);
+    CellCurrentColors.Init(FLinearColor::White, 25);
+    CellTargetColors.Init(FLinearColor::White, 25);
+    CellPulseTime = 0.0f;
+
+    RefreshBingoProgress();
+
+    // Restaurer la derniere case selectionnee
+    if (APlayerController* PC = GetOwningPlayer())
+    {
+        if (const int32* Previous =
+            GBingoV3SelectedCells.Find(PC))
+        {
+            if (*Previous >= 0 && *Previous < Cells.Num())
+            {
+                SelectCell(*Previous);
+            }
+        }
+    }}
+
+void UBingoTerminalWidgetV3::NativeTick(
+    const FGeometry& MyGeometry,
+    float InDeltaTime)
+{
+    // Animation fluide de la progression individuelle.
+    ChallengeDisplayedProgress = FMath::FInterpTo(
+        ChallengeDisplayedProgress,
+        ChallengeTargetProgress,
+        InDeltaTime,
+        5.0f
+    );
+
+    if (IsValid(ChallengeProgressBar))
+    {
+        ChallengeProgressBar->SetPercent(ChallengeDisplayedProgress);
+    }
+
+    Super::NativeTick(MyGeometry, InDeltaTime);
+    AnimateCellStates(InDeltaTime);
+    RefreshCellAnimations();
+
+    for (int32 I = 0; I < Cells.Num(); ++I)
+    {
+        if (!IsValid(Cells[I]) ||
+            !CellAnimationValues.IsValidIndex(I) ||
+            !CellAnimationTargets.IsValidIndex(I))
+        {
+            continue;
+        }
+
+        CellAnimationValues[I] = FMath::FInterpTo(
+            CellAnimationValues[I],
+            CellAnimationTargets[I],
+            InDeltaTime,
+            8.0f
+        );
+
+        Cells[I]->SetRenderTransformPivot(FVector2D(0.5f, 0.5f));
+
+        Cells[I]->SetRenderScale(
+            FVector2D(
+                CellAnimationValues[I],
+                CellAnimationValues[I]
+            )
+        );
+    }
+
+    RefreshElapsed += InDeltaTime;
+
+    if (RefreshElapsed >= 0.5f)
+    {
+        RefreshElapsed = 0.0f;
+        RefreshBingoProgress();
+        RefreshCellStates();
+        RefreshChallengeProgress();
+    }
+
+    // Animation fluide de la barre.
+    DisplayedProgress = FMath::FInterpTo(
+        DisplayedProgress,
+        TargetProgress,
+        InDeltaTime,
+        5.0f
+    );
+
+    if (IsValid(ProgressBar))
+    {
+        ProgressBar->SetPercent(DisplayedProgress);
+    }
+}
+
+void UBingoTerminalWidgetV3::RefreshBingoProgress()
+{
+    UWorld* World = GetWorld();
+    if (!World) return;
+
+    ABingoSubsystem* Subsystem = nullptr;
+
+    for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+    {
+        Subsystem = *It;
+        break;
+    }
+
+    if (!IsValid(Subsystem)) return;
+
+    UBingoGameData* Data = Subsystem->GetBingoGameData();
+    if (!IsValid(Data)) return;
+    // BINGO_V3_DISPLAY_PHASE_SYNC_01
+    if (DisplayedPhase == INDEX_NONE)
+    {
+        DisplayedPhase = Data->CurrentPhase;
+    }
+
+
+    const int32 PhaseIndex =
+        FMath::Clamp(DisplayedPhase - 1, 0, 4);
+
+    if (!Data->Phases.IsValidIndex(PhaseIndex)) return;
+
+    const FBingoPhase& Phase = Data->Phases[PhaseIndex];
+
+    int32 Completed = 0;
+
+    for (const FBingoChallenge& Challenge : Phase.Challenges)
+    {
+        if (Challenge.bCompleted)
+        {
+            ++Completed;
+        }
+    }
+
+    const int32 TotalChallenges = Phase.Challenges.Num();
+
+    TargetProgress = TotalChallenges > 0
+        ? FMath::Clamp(
+            static_cast<float>(Completed) /
+                static_cast<float>(TotalChallenges),
+            0.0f,
+            1.0f
+        )
+        : 0.0f;
+
+    if (IsValid(ProgressText))
+    {
+        ProgressText->SetText(FText::FromString(
+            FString::Printf(
+                TEXT("PROGRESSION : %d / %d"),
+                Completed,
+                TotalChallenges
+            )
+        ));
+    }
+
+    if (IsValid(PhaseText))
+    {
+        PhaseText->SetText(FText::FromString(
+            FString::Printf(
+                TEXT("PHASE %d / 5"),
+                DisplayedPhase
+            )
+        ));
+    }
+
+    if (IsValid(PointsText))
+    {
+        PointsText->SetText(FText::FromString(
+            FString::Printf(
+                TEXT("POINTS BINGO : %d"),
+                Subsystem->GetTotalBingoPoints()
+            )
+        ));
+    }
+}
+void UBingoTerminalWidgetV3::RefreshCellAnimations()
+{
+    for (int32 I = 0; I < Cells.Num(); ++I)
+    {
+        if (!IsValid(Cells[I]) ||
+            !CellAnimationTargets.IsValidIndex(I))
+        {
+            continue;
+        }
+
+        CellAnimationTargets[I] =
+            Cells[I]->IsHovered() ? 1.06f : 1.0f;
+    }
+}
+
+void UBingoTerminalWidgetV3::SelectCell(int32 Index)
+{
+    if (Index < 0 || Index >= Cells.Num())
+    {
+        return;
+    }
+
+    SelectedCellIndex = Index;
+    RefreshChallengeProgress();
+
+    if (APlayerController* PC = GetOwningPlayer())
+    {
+        GBingoV3SelectedCells.Add(PC, Index);
+    }
+
+    ABingoSubsystem* Subsystem = nullptr;
+
+    if (UWorld* World = GetWorld())
+    {
+        for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+        {
+            Subsystem = *It;
+            break;
+        }
+    }
+
+    FString Message = FString::Printf(
+        TEXT("PHASE - CASE %02d"), Index + 1
+    );
+
+    if (IsValid(Subsystem))
+    {
+        UBingoGameData* Data = Subsystem->GetBingoGameData();
+
+        if (IsValid(Data) &&
+            Data->Phases.IsValidIndex(DisplayedPhase - 1))
+        {
+            const FBingoPhase& Phase =
+                Data->Phases[DisplayedPhase - 1];
+
+            if (Phase.Challenges.IsValidIndex(Index))
+            {
+                const FBingoChallenge& Challenge =
+                    Phase.Challenges[Index];
+
+                Message = FString::Printf(
+                    TEXT("PHASE %d - CASE %02d\n%s\n%s"),
+                    DisplayedPhase,
+                    Index + 1,
+                    *Challenge.Description.ToString(),
+                    Challenge.bCompleted
+                        ? TEXT("TERMINE")
+                        : TEXT("A REALISER")
+                );
+            }
+        }
+    }
+
+    if (IsValid(DetailsText))
+    {
+        DetailsText->SetAutoWrapText(true);
+        DetailsText->SetText(FText::FromString(Message));
+    }
+
+    RefreshCellStates();
+}
+
+void UBingoTerminalWidgetV3::RefreshCellStates()
+{
+    RefreshChallengeLabels();
+    RefreshChallengeProgress();
+    RefreshCellTextures();
+    ABingoSubsystem* Subsystem = nullptr;
+
+    if (UWorld* World = GetWorld())
+    {
+        for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+        {
+            Subsystem = *It;
+            break;
+        }
+    }
+
+    if (!IsValid(Subsystem)) return;
+
+    UBingoGameData* Data = Subsystem->GetBingoGameData();
+    if (!IsValid(Data)) return;
+
+    if (!Data->Phases.IsValidIndex(DisplayedPhase - 1))
+        return;
+
+    const FBingoPhase& Phase =
+        Data->Phases[DisplayedPhase - 1];
+
+    for (int32 I = 0; I < Cells.Num(); ++I)
+    {
+        if (!IsValid(Cells[I])) continue;
+
+        bool bCompleted = false;
+
+        if (Phase.Challenges.IsValidIndex(I))
+        {
+            bCompleted = Phase.Challenges[I].bCompleted;
+        }
+
+        const bool bSelected = SelectedCellIndex == I;
+
+        // Transition de couleur native UMG.
+        const FLinearColor Color =
+            bCompleted
+                ? FLinearColor(0.35f, 1.0f, 0.35f, 1.0f)
+                : bSelected
+                    ? FLinearColor(1.0f, 0.55f, 0.10f, 1.0f)
+                    : FLinearColor::White;
+
+        if (CellTargetColors.IsValidIndex(I))
+        {
+            CellTargetColors[I] = Color;
+        }
+    }
+}
+void UBingoTerminalWidgetV3::OnCellClicked0()
+{
+    SelectCell(0);
+}
+void UBingoTerminalWidgetV3::OnCellClicked1()
+{
+    SelectCell(1);
+}
+void UBingoTerminalWidgetV3::OnCellClicked2()
+{
+    SelectCell(2);
+}
+void UBingoTerminalWidgetV3::OnCellClicked3()
+{
+    SelectCell(3);
+}
+void UBingoTerminalWidgetV3::OnCellClicked4()
+{
+    SelectCell(4);
+}
+void UBingoTerminalWidgetV3::OnCellClicked5()
+{
+    SelectCell(5);
+}
+void UBingoTerminalWidgetV3::OnCellClicked6()
+{
+    SelectCell(6);
+}
+void UBingoTerminalWidgetV3::OnCellClicked7()
+{
+    SelectCell(7);
+}
+void UBingoTerminalWidgetV3::OnCellClicked8()
+{
+    SelectCell(8);
+}
+void UBingoTerminalWidgetV3::OnCellClicked9()
+{
+    SelectCell(9);
+}
+void UBingoTerminalWidgetV3::OnCellClicked10()
+{
+    SelectCell(10);
+}
+void UBingoTerminalWidgetV3::OnCellClicked11()
+{
+    SelectCell(11);
+}
+void UBingoTerminalWidgetV3::OnCellClicked12()
+{
+    SelectCell(12);
+}
+void UBingoTerminalWidgetV3::OnCellClicked13()
+{
+    SelectCell(13);
+}
+void UBingoTerminalWidgetV3::OnCellClicked14()
+{
+    SelectCell(14);
+}
+void UBingoTerminalWidgetV3::OnCellClicked15()
+{
+    SelectCell(15);
+}
+void UBingoTerminalWidgetV3::OnCellClicked16()
+{
+    SelectCell(16);
+}
+void UBingoTerminalWidgetV3::OnCellClicked17()
+{
+    SelectCell(17);
+}
+void UBingoTerminalWidgetV3::OnCellClicked18()
+{
+    SelectCell(18);
+}
+void UBingoTerminalWidgetV3::OnCellClicked19()
+{
+    SelectCell(19);
+}
+void UBingoTerminalWidgetV3::OnCellClicked20()
+{
+    SelectCell(20);
+}
+void UBingoTerminalWidgetV3::OnCellClicked21()
+{
+    SelectCell(21);
+}
+void UBingoTerminalWidgetV3::OnCellClicked22()
+{
+    SelectCell(22);
+}
+void UBingoTerminalWidgetV3::OnCellClicked23()
+{
+    SelectCell(23);
+}
+void UBingoTerminalWidgetV3::OnCellClicked24()
+{
+    SelectCell(24);
+}
+void UBingoTerminalWidgetV3::AnimateCellStates(float DeltaTime)
+{
+    CellPulseTime += DeltaTime;
+
+    for (int32 I = 0; I < Cells.Num(); ++I)
+    {
+        if (!IsValid(Cells[I]) ||
+            !CellCurrentColors.IsValidIndex(I) ||
+            !CellTargetColors.IsValidIndex(I))
+        {
+            continue;
+        }
+
+        CellCurrentColors[I] = FMath::CInterpTo(
+            CellCurrentColors[I],
+            CellTargetColors[I],
+            DeltaTime,
+            6.0f
+        );
+
+        const bool bSelected = SelectedCellIndex == I;
+
+        FLinearColor AnimatedColor = CellCurrentColors[I];
+
+        if (bSelected)
+        {
+            const float Pulse =
+                0.90f + 0.10f *
+                FMath::Sin(CellPulseTime * 4.0f);
+
+            AnimatedColor.R *= Pulse;
+            AnimatedColor.G *= Pulse;
+            AnimatedColor.B *= Pulse;
+        }
+
+        Cells[I]->SetColorAndOpacity(AnimatedColor);
+    }
+}
+
+void UBingoTerminalWidgetV3::LoadCellTextures()
+{
+    CellNormalTexture = LoadObject<UTexture2D>(
+        nullptr,
+        TEXT("/SatisfactoryBingo/Bingo/UI/V3Textures/Case_Normale.Case_Normale")
+    );
+
+    CellActiveTexture = LoadObject<UTexture2D>(
+        nullptr,
+        TEXT("/SatisfactoryBingo/Bingo/UI/V3Textures/Case_Active.Case_Active")
+    );
+
+    CellCompletedTexture = LoadObject<UTexture2D>(
+        nullptr,
+        TEXT("/SatisfactoryBingo/Bingo/UI/V3Textures/Case_Terminee.Case_Terminee")
+    );
+}
+
+void UBingoTerminalWidgetV3::RefreshCellTextures()
+{
+    ABingoSubsystem* Subsystem = nullptr;
+
+    if (UWorld* World = GetWorld())
+    {
+        for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+        {
+            Subsystem = *It;
+            break;
+        }
+    }
+
+    if (!IsValid(Subsystem))
+    {
+        return;
+    }
+
+    UBingoGameData* Data = Subsystem->GetBingoGameData();
+
+    if (!IsValid(Data) ||
+        !Data->Phases.IsValidIndex(DisplayedPhase - 1))
+    {
+        return;
+    }
+
+    const FBingoPhase& Phase =
+        Data->Phases[DisplayedPhase - 1];
+
+    for (int32 I = 0; I < Cells.Num(); ++I)
+    {
+        if (!IsValid(Cells[I]))
+        {
+            continue;
+        }
+
+        bool bCompleted = false;
+
+        if (Phase.Challenges.IsValidIndex(I))
+        {
+            bCompleted = Phase.Challenges[I].bCompleted;
+        }
+
+        UTexture2D* DesiredTexture = CellNormalTexture;
+
+        if (bCompleted)
+        {
+            DesiredTexture = CellCompletedTexture;
+        }
+        else if (SelectedCellIndex == I)
+        {
+            DesiredTexture = CellActiveTexture;
+        }
+
+        if (!IsValid(DesiredTexture))
+        {
+            continue;
+        }
+
+        // Retrouver l'image native dans le contenu du bouton.
+        UOverlay* Overlay =
+            Cast<UOverlay>(Cells[I]->GetContent());
+
+        if (!IsValid(Overlay))
+        {
+            continue;
+        }
+
+        for (UPanelSlot* PanelSlot : Overlay->GetSlots())
+        {
+            UWidget* Child = PanelSlot ? PanelSlot->Content : nullptr;
+
+            UImage* Image = Cast<UImage>(Child);
+
+            if (IsValid(Image))
+            {
+                Image->SetBrushFromTexture(
+                    DesiredTexture,
+                    false
+                );
+
+                break;
+            }
+        }
+    }
+}
+
+void UBingoTerminalWidgetV3::RefreshChallengeProgress()
+{
+    if (!IsValid(ChallengeProgressText))
+    {
+        return;
+    }
+
+    if (SelectedCellIndex == INDEX_NONE)
+    {
+        ChallengeTargetProgress = 0.0f;
+
+        ChallengeProgressText->SetText(
+            FText::FromString(TEXT("SELECTIONNEZ UN DEFI"))
+        );
+
+        return;
+    }
+
+    ABingoSubsystem* Subsystem = nullptr;
+
+    if (UWorld* World = GetWorld())
+    {
+        for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+        {
+            Subsystem = *It;
+            break;
+        }
+    }
+
+    if (!IsValid(Subsystem))
+    {
+        ChallengeTargetProgress = 0.0f;
+
+        ChallengeProgressText->SetText(
+            FText::FromString(TEXT("DONNEES INDISPONIBLES"))
+        );
+
+        return;
+    }
+
+    UBingoGameData* Data = Subsystem->GetBingoGameData();
+
+    if (!IsValid(Data) ||
+        !Data->Phases.IsValidIndex(DisplayedPhase - 1))
+    {
+        ChallengeTargetProgress = 0.0f;
+
+        ChallengeProgressText->SetText(
+            FText::FromString(TEXT("PHASE INDISPONIBLE"))
+        );
+
+        return;
+    }
+
+    const FBingoPhase& Phase =
+        Data->Phases[DisplayedPhase - 1];
+
+    if (!Phase.Challenges.IsValidIndex(SelectedCellIndex))
+    {
+        ChallengeTargetProgress = 0.0f;
+
+        ChallengeProgressText->SetText(
+            FText::FromString(TEXT("DEFI INDISPONIBLE"))
+        );
+
+        return;
+    }
+
+    const FBingoChallenge& Challenge =
+        Phase.Challenges[SelectedCellIndex];
+
+    // BINGO_V3_REAL_BIOMASS_PROGRESS_01
+    if (DisplayedPhase == 1 && SelectedCellIndex == 20)
+    {
+        const int32 Current = Challenge.bCompleted
+            ? 500
+            : FMath::Clamp(
+                Subsystem->BingoWoodBiomassProduced, 0, 500
+            );
+
+        ChallengeTargetProgress =
+            static_cast<float>(Current) / 500.0f;
+
+        ChallengeProgressText->SetText(
+            FText::FromString(
+                FString::Printf(
+                    TEXT("BIOMASSE BOIS : %d / 500"),
+                    Current
+                )
+            )
+        );
+
+        return;
+    }
+
+    const int32 Completed = Challenge.bCompleted ? 1 : 0;
+
+    ChallengeTargetProgress = static_cast<float>(Completed);
+
+    ChallengeProgressText->SetText(
+        FText::FromString(
+            FString::Printf(
+                TEXT("PROGRESSION DU DEFI : %d / 1"),
+                Completed
+            )
+        )
+    );
+}
+
+// BINGO_V3_INPUT_AND_SELECTION_01
+bool UBingoTerminalWidgetV3::NativeCanCallInit()
+{
+    UE_LOG(LogTemp, Warning,
+        TEXT("[BINGO_UI] NativeCanCallInit"));
+
+    return true;
+}
+
+void UBingoTerminalWidgetV3::Init_Implementation()
+{
+    UE_LOG(LogTemp, Warning,
+        TEXT("[BINGO_UI] Init ENTER"));
+
+    Super::Init_Implementation();
+
+    UE_LOG(LogTemp, Warning,
+        TEXT("[BINGO_UI] Init OK"));
+}
+
+void UBingoTerminalWidgetV3::OnPushedToGameUI_Implementation()
+{
+    UE_LOG(LogTemp, Warning,
+        TEXT("[BINGO_UI] OnPushedToGameUI ENTER"));
+
+    Super::OnPushedToGameUI_Implementation();
+
+    SetInputMode_Implementation();
+
+    UE_LOG(LogTemp, Warning,
+        TEXT("[BINGO_UI] OnPushedToGameUI OK"));
+}
+
+void UBingoTerminalWidgetV3::SetInputMode_Implementation()
+{
+    Super::SetInputMode_Implementation();
+
+    APlayerController* PC = GetOwningPlayer();
+    if (!PC)
+    {
+        return;
+    }
+
+    PC->bShowMouseCursor = true;
+    PC->SetIgnoreLookInput(true);
+    PC->SetIgnoreMoveInput(true);
+
+    FInputModeGameAndUI InputMode;
+    InputMode.SetWidgetToFocus(TakeWidget());
+    InputMode.SetHideCursorDuringCapture(false);
+    InputMode.SetLockMouseToViewportBehavior(
+        EMouseLockMode::DoNotLock
+    );
+
+    PC->SetInputMode(InputMode);
+    SetKeyboardFocus();
+}
+
+void UBingoTerminalWidgetV3::CloseBingoTerminal()
+{
+    AFGPlayerController* PC =
+        Cast<AFGPlayerController>(GetOwningPlayer());
+
+    if (!PC)
+    {
+        return;
+    }
+
+    UFGGameUI* GameUI = PC->GetGameUI();
+
+    if (GameUI)
+    {
+        GameUI->PopWidget(this);
+    }
+}
+
+FReply UBingoTerminalWidgetV3::NativeOnPreviewKeyDown(
+    const FGeometry& InGeometry,
+    const FKeyEvent& InKeyEvent)
+{
+    APlayerController* PC = GetOwningPlayer();
+
+    if (!PC)
+    {
+        return Super::NativeOnPreviewKeyDown(
+            InGeometry, InKeyEvent
+        );
+    }
+
+    // BINGO_ESCAPE_CLOSE_FIX_01
+    if (InKeyEvent.GetKey() == EKeys::Escape)
+    {
+        CloseBingoTerminal();
+        return FReply::Handled();
+    }
+    FKey UseKey;
+    TArray<FKey> Modifiers;
+
+    const bool bFound =
+        UFGInputLibrary::GetCurrentMappingForAction(
+            PC,
+            FName(TEXT("PlayerActions_Use")),
+            UseKey,
+            Modifiers
+        );
+
+    if (bFound && InKeyEvent.GetKey() == UseKey)
+    {
+        bool bModifiersValid = true;
+
+        for (const FKey& Modifier : Modifiers)
+        {
+            if ((Modifier == EKeys::LeftShift ||
+                 Modifier == EKeys::RightShift) &&
+                !InKeyEvent.IsShiftDown())
+            {
+                bModifiersValid = false;
+            }
+
+            if ((Modifier == EKeys::LeftControl ||
+                 Modifier == EKeys::RightControl) &&
+                !InKeyEvent.IsControlDown())
+            {
+                bModifiersValid = false;
+            }
+
+            if ((Modifier == EKeys::LeftAlt ||
+                 Modifier == EKeys::RightAlt) &&
+                !InKeyEvent.IsAltDown())
+            {
+                bModifiersValid = false;
+            }
+
+            if ((Modifier == EKeys::LeftCommand ||
+                 Modifier == EKeys::RightCommand) &&
+                !InKeyEvent.IsCommandDown())
+            {
+                bModifiersValid = false;
+            }
+        }
+
+        if (bModifiersValid)
+        {
+            CloseBingoTerminal();
+            return FReply::Handled();
+        }
+    }
+
+    return Super::NativeOnPreviewKeyDown(
+        InGeometry, InKeyEvent
+    );
+}
+// BINGO_V3_CHALLENGE_LABELS_01
+
+void UBingoTerminalWidgetV3::RefreshChallengeLabels()
+{
+    UWorld* World = GetWorld();
+    if (!World) return;
+
+    ABingoSubsystem* Subsystem = nullptr;
+
+    for (TActorIterator<ABingoSubsystem> It(World); It; ++It)
+    {
+        Subsystem = *It;
+        break;
+    }
+
+    if (!IsValid(Subsystem)) return;
+
+    UBingoGameData* Data = Subsystem->GetBingoGameData();
+    if (!IsValid(Data)) return;
+
+    const int32 PhaseIndex = (DisplayedPhase == INDEX_NONE ? Data->CurrentPhase : DisplayedPhase) - 1;
+
+    if (!Data->Phases.IsValidIndex(PhaseIndex))
+        return;
+
+    const FBingoPhase& Phase = Data->Phases[PhaseIndex];
+
+    for (int32 I = 0; I < CellLabels.Num(); ++I)
+    {
+        UTextBlock* Label = CellLabels[I];
+
+        if (!IsValid(Label)) continue;
+        if (!Phase.Challenges.IsValidIndex(I)) continue;
+
+        const FString Description =
+            Phase.Challenges[I].Description.ToString();
+
+        int32 FontSize = 10;
+
+        if (Description.Len() > 80)
+            FontSize = 8;
+        else if (Description.Len() > 55)
+            FontSize = 8;
+        else if (Description.Len() > 30)
+            FontSize = 10;
+
+        FSlateFontInfo Font = Label->GetFont();
+        Font.Size = FontSize;
+
+        Label->SetFont(Font);
+        Label->SetAutoWrapText(true);
+        Label->SetWrapTextAt(102.0f);
+        Label->SetJustification(ETextJustify::Center);
+        Label->SetText(FText::FromString(Description.Len() > 48 ? Description.Left(45) + TEXT("...") : Description));
+    }
+}

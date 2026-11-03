@@ -1,0 +1,38 @@
+{
+    "FileVersion":  3,
+    "Version":  1,
+    "VersionName":  "0.1.0",
+    "SemVersion":  "1.0.0",
+    "FriendlyName":  "Satisfactory Bingo",
+    "Description":  "Bingo personnalisable avec validation automatique des defis.",
+    "Category":  "Gameplay",
+    "CreatedBy":  "Satisfactory Bingo",
+    "CanContainContent":  true,
+    "IsBetaVersion":  true,
+    "Modules":  [
+                    {
+                        "Name":  "SatisfactoryBingo",
+                        "Type":  "Runtime",
+                        "LoadingPhase":  "Default"
+                    },
+                    {
+                        "Name":  "SatisfactoryBingoEditor",
+                        "Type":  "Editor",
+                        "LoadingPhase":  "Default"
+                    }
+                ],
+    "Plugins":  [
+                    {
+                        "Name":  "SML",
+                        "Enabled":  true,
+                        "SemVersion":  "^3.12.0"
+                    }
+                ],
+    "CreatedByURL":  "",
+    "DocsURL":  "",
+    "MarketplaceURL":  "",
+    "SupportURL":  "",
+    "IsExperimentalVersion":  false,
+    "Installed":  false,
+    "GameVersion":  "\u003e=513885"
+}
