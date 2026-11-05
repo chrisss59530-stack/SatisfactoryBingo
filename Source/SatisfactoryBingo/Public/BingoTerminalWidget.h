@@ -8,6 +8,10 @@ class UBingoGameData;
 class UTextBlock;
 class UUniformGridPanel;
 class UButton;
+class UTexture2D;
+class UWidgetSwitcher;
+class UBingoRewardButton;
+class ABingoRadarPlayerActor;
 
 UCLASS()
 class SATISFACTORYBINGO_API UBingoTerminalWidget : public UFGInteractWidget
@@ -23,6 +27,11 @@ public:
         const FPointerEvent& InMouseEvent) override;
 
     virtual void OnEscapePressed_Implementation() override;
+
+public:
+    // Import the frame as a UI texture and assign it in the terminal widget defaults.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Bingo|Appearance")
+    TObjectPtr<UTexture2D> FrameTexture;
 
 private:
     UPROPERTY(Transient)
@@ -49,6 +58,30 @@ private:
     // BINGO_NATIVE_CELL_TEXT_V1
     UPROPERTY(Transient)
     TArray<TObjectPtr<UTextBlock>> CellTexts;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UWidgetSwitcher> ContentTabs;
+
+    UPROPERTY(Transient)
+    TArray<TObjectPtr<UTextBlock>> RewardTexts;
+
+    UPROPERTY(Transient)
+    TArray<TObjectPtr<UBingoRewardButton>> RewardButtons;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UTextBlock> RewardStatusText;
+
+    UPROPERTY(Transient)
+    TObjectPtr<ABingoRadarPlayerActor> RewardNetworkActor;
+
+    UFUNCTION()
+    void OnRewardPurchaseRequested(const FString& RewardId);
+
+    UFUNCTION()
+    void OnBingoTabClicked();
+
+    UFUNCTION()
+    void OnRewardsTabClicked();
 
     int32 DisplayedPhase = 1;
     int32 SelectedCell = INDEX_NONE;

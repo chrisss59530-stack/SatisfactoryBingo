@@ -5,3 +5,10 @@ Saved/
 *.log
 *.pdb
 *.suo
+
+__pycache__/
+*.bak
+*.bak[0-9]*
+*.tmp
+*.log
+*.zip

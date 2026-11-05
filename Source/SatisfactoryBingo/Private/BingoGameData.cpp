@@ -25,7 +25,7 @@ void UBingoGameData::InitializeGame()
             TEXT("Construire au moins un conteneur de stockage"),
             TEXT("Construire un groupeur pour 3 machines"),
             TEXT("Construire un répartiteur pour 3 machines"),
-            TEXT("Construire au moins un véhicule motorisé"),
+            TEXT("Récupérer 1 disque dur sur un site de crash"),
             TEXT("CASE LIBRE CENTRALE"),
             TEXT("Fabriquer manuellement un équipement dans l'atelier d'équipement"),
             TEXT("Relier au moins 2 fonderies à une même foreuse"),
@@ -37,35 +37,35 @@ void UBingoGameData::InitializeGame()
             TEXT("Produire 500 unités de biomasse à partir de bois dans un constructeur"),
             TEXT("Exploiter 4 gisements distincts avec des foreuses en production"),
             TEXT("Exploiter 6 gisements distincts avec des foreuses en production"),
-            TEXT("Explorer une grotte"),
-            TEXT("Explorer une zone côtière")
+            TEXT("Explorer 2 zones distinctes de la carte"),
+            TEXT("Explorer la Côte des Flèches (Spire Coast)")
         },
         {
             TEXT("Acheter un nouveau type de fondation"),
             TEXT("Acheter un nouveau type de murs"),
             TEXT("Acheter votre tasse à café"),
-            TEXT("Améliorer 20 fondations en béton"),
+            TEXT("Construire 20 fondations de tout type"),
             TEXT("Avoir une production de plus de 1000MW d'énergie"),
             TEXT("Avoir une production de plus de 2000MW d'énergie"),
-            TEXT("Changer le nuancier personnalisé"),
+            TEXT("Construire 2 boutiques AWESOME"),
             TEXT("Construire un 2e générateur à charbon"),
-            TEXT("Construire un 2e étage d'usine en hauteur"),
+            TEXT("Construire 2 conteneurs de stockage Mk1"),
             TEXT("Construire un 3e générateur à charbon"),
-            TEXT("Construire un 3e étage d'usine en hauteur"),
+            TEXT("Construire 4 conteneurs de stockage Mk1"),
             TEXT("Construire un générateur à charbon"),
             TEXT("CASE LIBRE CENTRALE"),
             TEXT("Construire un modeleur et sauvegarder votre 1er plan"),
-            TEXT("Construire un mur décoratif autour de la base"),
+            TEXT("Construire 20 murs"),
             TEXT("Construire un pipeline"),
-            TEXT("Construire un pont métallique au-dessus d'un ravin"),
-            TEXT("Construire un réseau de pipelines pour l'eau"),
+            TEXT("Construire 10 tronçons de convoyeur"),
+            TEXT("Construire 20 tronçons de pipeline"),
             TEXT("Construire une 2e fonderie avancée"),
             TEXT("Construire une assembleuse"),
             TEXT("Construire une fonderie avancée"),
             TEXT("Construire une foreuse mk2"),
             TEXT("Construire une plateforme de saut"),
             TEXT("Construire une pompe de pipeline"),
-            TEXT("Construire une rampe d'accès pour vos véhicules")
+            TEXT("Construire 4 pompes de pipeline")
         },
         {
             TEXT("Atterrir en douceur avec le jetpack ou un parachute"),
@@ -76,8 +76,8 @@ void UBingoGameData::InitializeGame()
             TEXT("Avoir une production de plus de 3000MW d'énergie"),
             TEXT("Avoir une production de plus de 4000MW d'énergie"),
             TEXT("Construire un générateur à carburant"),
-            TEXT("Construire un pont autoroutier pour vos véhicules"),
-            TEXT("Construire un pont ferroviaire"),
+            TEXT("Construire 50 fondations de tout type"),
+            TEXT("Construire 10 tronçons de voie ferrée"),
             TEXT("Construire un répartiteur intelligent"),
             TEXT("Avoir au moins 2 réservoirs de stockage de fluides construits"),
             TEXT("CASE LIBRE CENTRALE"),
@@ -89,20 +89,20 @@ void UBingoGameData::InitializeGame()
             TEXT("Construire une gare de train"),
             TEXT("Construire une raffinerie"),
             TEXT("Construire une station de camions"),
-            TEXT("Construire une station de camions-citernes"),
+            TEXT("Construire 2 stations de camions"),
             TEXT("Equiper une arme à distance et des munitions"),
             TEXT("Atteindre un débit réel d'extraction de 300 m³ de pétrole brut par minute"),
-            TEXT("Fabriquer des moteurs en petite série")
+            TEXT("Posséder 20 moteurs dans son inventaire")
         },
         {
-            TEXT("Améliorer des convoyeurs mk3 en mk5"),
+            TEXT("Améliorer un convoyeur Mk3 en Mk5"),
             TEXT("Terminer l'analyse de 5 disques durs dans le MAM"),
             TEXT("Terminer l'analyse de 6 disques durs dans le MAM"),
             TEXT("Atterrir en douceur avec l'hoverpack"),
             TEXT("Récupérer 20 disques durs dans les épaves"),
             TEXT("Avoir dépensé 20 bons dans la boutique"),
             TEXT("Avoir dépensé 25 bons dans la boutique"),
-            TEXT("Avoir toujours un moyen de se soigner dans un emplacement de main"),
+            TEXT("Construire 2 conteneurs de stockage industriels Mk2"),
             TEXT("Avoir une production de plus de 5000MW d'énergie"),
             TEXT("Avoir une production de plus de 6000MW d'énergie"),
             TEXT("Avoir au moins 2 accélérateurs de particules construits"),
@@ -114,20 +114,20 @@ void UBingoGameData::InitializeGame()
             TEXT("Construire un port de drone"),
             TEXT("Faire fonctionner une raffinerie produisant une solution d'alumine à partir de bauxite"),
             TEXT("Avoir une foreuse active avec une cadence d'extraction d'au moins 600 minerais/min"),
-            TEXT("Extraire 200 bauxite/min"),
-            TEXT("Extraire 400 bauxite/min"),
-            TEXT("Fabriquer des onduleurs"),
-            TEXT("Fabriquer des turbomoteurs en petite série"),
+            TEXT("Posséder 200 minerais de bauxite dans son inventaire"),
+            TEXT("Posséder 400 minerais de bauxite dans son inventaire"),
+            TEXT("Posséder 10 oscillateurs à quartz dans son inventaire"),
+            TEXT("Posséder 10 turbomoteurs dans son inventaire"),
             TEXT("Fabriquer un 2e hoverpack de secours"),
             TEXT("Fabriquer votre hoverpack")
         },
         {
-            TEXT("Terminer l'analyse de 3 disques durs dans le MAM"),
-            TEXT("Terminer l'analyse de 4 disques durs dans le MAM"),
+            TEXT("Posséder 500 diamants dans son inventaire"),
+            TEXT("Posséder 500 cubes de conversion dans son inventaire"),
             TEXT("Automatiser la chaine de cristal temporel"),
             TEXT("Automatiser la chaine de diamants"),
             TEXT("Automatiser la chaine de lingots de Ficsite"),
-            TEXT("Automatiser la chaine de trigones de Ficsite"),
+            TEXT("Automatiser la chaîne de trigones de Ficsite"),
             TEXT("Automatiser la chaîne de pâtes nucléaires"),
             TEXT("Automatiser une chaîne simple de diamants"),
             TEXT("Récupérer 30 disques durs dans les épaves"),
@@ -140,13 +140,13 @@ void UBingoGameData::InitializeGame()
             TEXT("Avoir au moins 2 encodeurs quantiques construits"),
             TEXT("Construire un convertisseur"),
             TEXT("Construire un encodeur quantique"),
-            TEXT("Convertir un 2e type de minerai avec un convertisseur"),
-            TEXT("Convertir un minerai en un autre avec le convertisseur"),
+            TEXT("Faire fonctionner 2 convertisseurs produisant 2 minerais différents"),
+            TEXT("Faire fonctionner un convertisseur produisant un minerai"),
             TEXT("Avoir une foreuse active avec une cadence d'extraction d'au moins 780 minerais/min"),
             TEXT("Récupérer 10 sphères de Mercer dans le monde"),
-            TEXT("Fabriquer vos 1ers diamants"),
-            TEXT("Fabriquer vos 1ers lingots de Ficsit"),
-            TEXT("Fabriquer vos 1ers serveurs d'expansion d'I.A.")
+            TEXT("Posséder 1 diamant dans son inventaire"),
+            TEXT("Posséder 1 lingot de Ficsite dans son inventaire"),
+            TEXT("Posséder 1 serveur d'expansion d'I.A. dans son inventaire")
         }
     };
 
@@ -165,7 +165,7 @@ void UBingoGameData::InitializeGame()
                 TEXT("P%d_C%d"), PhaseIndex, CellIndex + 1);
 
             Challenge.Description = FText::FromString(PhaseDescriptions[PhaseIndex - 1][CellIndex]);
-            Challenge.Points = (CellIndex == 12) ? 0 : (PhaseIndex == 1 && CellIndex == 16 ? 3 : 1);
+            Challenge.Points = (CellIndex == 12) ? 0 : 10;
             Challenge.bCompleted = (CellIndex == 12);
             Phase.Challenges.Add(Challenge);
         }
@@ -199,6 +199,11 @@ bool UBingoGameData::CompleteChallenge(const FString& ChallengeId)
             TotalScore += Challenge.Points;
 
             EvaluateBingoLines(Phase.PhaseNumber);
+            // A first Bingo advances only this personal grid.
+            if (Phase.PhaseNumber == CurrentPhase && Phase.BingoCount > 0)
+            {
+                UnlockNextPhase();
+            }
             return true;
         }
     }

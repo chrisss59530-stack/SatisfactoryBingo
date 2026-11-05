@@ -62,11 +62,11 @@ TArray<FBingoRadarResult> UBingoRadarScanner::ScanWorld(
 
         if (ItemName.StartsWith(TEXT("Desc_WAT1")))
         {
-            Result.Type = EBingoRadarTarget::MercerSphere;
+            Result.Type = EBingoRadarTarget::Somersloop;
         }
         else if (ItemName.StartsWith(TEXT("Desc_WAT2")))
         {
-            Result.Type = EBingoRadarTarget::Somersloop;
+            Result.Type = EBingoRadarTarget::MercerSphere;
         }
         else
         {

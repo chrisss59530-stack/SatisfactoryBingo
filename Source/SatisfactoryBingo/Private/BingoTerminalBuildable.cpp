@@ -159,6 +159,11 @@ void ABingoTerminalBuildable::OnUse_Implementation(
         return;
     }
 
+    if (UBingoTerminalWidget* Terminal = Cast<UBingoTerminalWidget>(BingoWidget))
+    {
+        Terminal->FrameTexture = BingoFrameTexture;
+    }
+
     BingoWidget->mInteractObject = this;
 
     UE_LOG(LogTemp, Warning,

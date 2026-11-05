@@ -1,6 +1,7 @@
 // BINGO_BIOMASS_WORLD_V1
 // BINGO_WORLD_CHALLENGES_MIGRATION_V1
 #include "BingoSubsystem.h"
+#include "BingoTerminalBuildable.h"
 #include "FGPlayerState.h"
 #include "FGStatisticsSubsystem.h"
 #include "Buildables/FGBuildableFoundation.h"
@@ -12,6 +13,8 @@
 #include "Buildables/FGBuildableStorage.h"
 #include "Buildables/FGBuildableResourceExtractor.h"
 #include "FGRecipe.h"
+#include "Resources/FGItemDescriptor.h"
+#include "Resources/FGResourceDescriptor.h"
 #include "FGMapArea.h"
 #include "Buildables/FGBuildableManufacturer.h"
 #include "Buildables/FGBuildableFactory.h"
@@ -28,7 +31,6 @@
 #include "FGPortableMiner.h"
 #include "FGCharacterPlayer.h"
 #include "Equipment/FGChainsaw.h"
-#include "FGVehicle.h"
 #include "BingoRadarPlayerActor.h"
 #include "FGGameState.h"
 #include "FGResearchManager.h"
@@ -37,6 +39,31 @@
 #include "Buildables/FGBuildableMAM.h"
 #include "BingoGameData.h"
 #include "Net/UnrealNetwork.h"
+
+// BINGO_POWERED_VALIDATION_V1
+namespace
+{
+    bool BingoHasPoweredWorldTerminal(UWorld* World)
+    {
+        if (!World) return false;
+
+        for (TActorIterator<ABingoTerminalBuildable> It(World); It; ++It)
+        {
+            ABingoTerminalBuildable* Terminal = *It;
+
+            if (IsValid(Terminal) &&
+                Terminal->HasActorBegunPlay() &&
+                !Terminal->IsActorBeingDestroyed() &&
+                !Terminal->IsBuildableInsideBlueprintDesigner() &&
+                Terminal->IsBingoPowered())
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
 
 ABingoSubsystem::ABingoSubsystem()
 {
@@ -210,6 +237,7 @@ void ABingoSubsystem::BingoOnEquipmentCrafted(
     }
 
     // BINGO_P1_C18_C19_CRAFT_V2
+    BingoRecordHoverPackCraft(PlayerState, Crafted);
     // L'evenement du jeu confirme une fabrication manuelle.
     const FString CraftedClassName =
         GetNameSafe(Crafted.ItemClass.Get());
@@ -349,21 +377,27 @@ void ABingoSubsystem::BingoOnWorldItemPickedUp(
     }
 
     const FString ItemName = GetNameSafe(PickedUp.ItemClass.Get());
+    AFGStatisticsSubsystem* PickupStats = AFGStatisticsSubsystem::Get(GetWorld());
+    if (!IsValid(PickupStats)) return;
+    // The delegate describes an observed total, not a guaranteed delta. Read
+    // the official per-player counter so repeated callbacks cannot inflate it.
+    const int32 OfficialTotal = FMath::Clamp(
+        PickupStats->Stat_GetNumItemsPickedUp(PickedUp.ItemClass, PlayerState), 0, 1000000);
     if (ItemName.Equals(TEXT("Desc_HardDrive_C"), ESearchCase::IgnoreCase))
     {
+        const int32 Added = FMath::Max(0, OfficialTotal - Progress->HardDrivesCollected);
         BingoHardDrivesCollected = FMath::Clamp(
-            BingoHardDrivesCollected + PickedUp.Amount, 0, 1000000);
+            BingoHardDrivesCollected + Added, 0, 1000000);
 
-        Progress->HardDrivesCollected = FMath::Clamp(
-            Progress->HardDrivesCollected + PickedUp.Amount, 0, 1000000);
+        Progress->HardDrivesCollected = FMath::Max(Progress->HardDrivesCollected, OfficialTotal);
     }
     else if (ItemName.Equals(TEXT("Desc_WAT2_C"), ESearchCase::IgnoreCase))
     {
+        const int32 Added = FMath::Max(0, OfficialTotal - Progress->MercerSpheresCollected);
         BingoMercerSpheresCollected = FMath::Clamp(
-            BingoMercerSpheresCollected + PickedUp.Amount, 0, 1000000);
+            BingoMercerSpheresCollected + Added, 0, 1000000);
 
-        Progress->MercerSpheresCollected = FMath::Clamp(
-            Progress->MercerSpheresCollected + PickedUp.Amount, 0, 1000000);
+        Progress->MercerSpheresCollected = FMath::Max(Progress->MercerSpheresCollected, OfficialTotal);
     }
     else
     {
@@ -374,16 +408,23 @@ void ABingoSubsystem::BingoOnWorldItemPickedUp(
         TEXT("[Bingo] Collecte observee : %s x%d | Disques=%d Mercer=%d"),
         *ItemName, PickedUp.Amount,
         BingoHardDrivesCollected, BingoMercerSpheresCollected);
-    if (Progress->HardDrivesCollected >= 10)
+    // Validation may synchronize/reallocate saved records. Snapshot the owner's
+    // collection counts before calling it; never use the global world counter.
+    const int32 PersonalHardDrives = Progress->HardDrivesCollected;
+    const int32 PersonalMercerSpheres = Progress->MercerSpheresCollected;
+    if (PersonalHardDrives >= 1)
+        ValidateChallengeForPlayer(TEXT("P1_C12"), PlayerState);
+
+    if (PersonalHardDrives >= 10)
         ValidateChallengeForPlayer(TEXT("P3_C3"), PlayerState);
 
-    if (Progress->HardDrivesCollected >= 20)
+    if (PersonalHardDrives >= 20)
         ValidateChallengeForPlayer(TEXT("P4_C5"), PlayerState);
 
-    if (Progress->HardDrivesCollected >= 30)
+    if (PersonalHardDrives >= 30)
         ValidateChallengeForPlayer(TEXT("P5_C9"), PlayerState);
 
-    if (Progress->MercerSpheresCollected >= 10)
+    if (PersonalMercerSpheres >= 10)
         ValidateChallengeForPlayer(TEXT("P5_C22"), PlayerState);
     ForceNetUpdate();
 }
@@ -391,10 +432,13 @@ void ABingoSubsystem::BingoOnWorldItemPickedUp(
 void ABingoSubsystem::BingoValidateCollectionChallenges()
 {
     if (!HasAuthority()) return;
-    if (BingoHardDrivesCollected >= 10) ValidateChallenge(TEXT("P3_C3"));
-    if (BingoHardDrivesCollected >= 20) ValidateChallenge(TEXT("P4_C5"));
-    if (BingoHardDrivesCollected >= 30) ValidateChallenge(TEXT("P5_C9"));
-    if (BingoMercerSpheresCollected >= 10) ValidateChallenge(TEXT("P5_C22"));
+    BingoEnsureObjectiveBindings();
+    BingoRecheckPersonalCollections();
+    BingoCheckGlobalHardDriveResearch();
+    BingoRecheckPersonalExploration();
+    BingoCheckEquipmentAndTrains();
+    BingoCheckConfirmedProduction();
+    BingoRecheckPersonalAchievements();
 }
 
 void ABingoSubsystem::BeginPlay()
@@ -527,7 +571,7 @@ FString ABingoSubsystem::BingoGetPlayerId(
 
     if (!UniqueId.IsValid())
     {
-        return FString();
+        return FString::Printf(TEXT("LOCAL_%s"), *PlayerState->GetPlayerName()); // BINGO_SYNC_05
     }
 
         const TSharedPtr<const FUniqueNetId> NetId =
@@ -535,7 +579,7 @@ FString ABingoSubsystem::BingoGetPlayerId(
 
     if (!NetId.IsValid())
     {
-        return FString();
+        return FString::Printf(TEXT("LOCAL_%s"), *PlayerState->GetPlayerName()); // BINGO_SYNC_05
     }
 
     return NetId->ToString();
@@ -626,6 +670,15 @@ void ABingoSubsystem::BingoInitializeConnectedPlayers()
 
         UBingoGameData* PersonalGrid =
             BingoGetOrCreatePlayerGameData(PlayerId);
+
+        // Also recognize a hard drive already recorded for this player before
+        // this challenge changed. Keep previously completed cells and points.
+        if (IsValid(PersonalGrid))
+        {
+            const FBingoPlayerProgress* Progress = BingoFindPlayerProgress(PlayerId);
+            if (Progress && Progress->HardDrivesCollected >= 1)
+                ValidateChallengeForPlayer(TEXT("P1_C12"), PlayerState);
+        }
 
         if (PersonalGrid && !bAlreadyRegistered)
         {
@@ -830,6 +883,8 @@ void ABingoSubsystem::GatherDependencies_Implementation(
 int32 ABingoSubsystem::ValidateChallengeForAllPlayers(
     const FString& ChallengeId)
 {
+    if (!BingoHasPoweredWorldTerminal(GetWorld())) return 0;
+
     // BINGO_WORLD_VALIDATION_V1
     if (!HasAuthority() || !GetWorld())
     {
@@ -892,6 +947,8 @@ bool ABingoSubsystem::ValidateChallengeForPlayer(
     const FString& ChallengeId,
     AFGPlayerState* PlayerState)
 {
+    if (!BingoHasPoweredWorldTerminal(GetWorld())) return false;
+
     // BINGO_PERSONAL_VALIDATION_V1
     if (!HasAuthority() || !IsValid(PlayerState))
     {
@@ -943,6 +1000,8 @@ bool ABingoSubsystem::ValidateChallengeForPlayer(
 }
 bool ABingoSubsystem::ValidateChallenge(const FString& ChallengeId)
 {
+    if (!BingoHasPoweredWorldTerminal(GetWorld())) return false;
+
     if (!HasAuthority())
     {
         return false;
@@ -1157,78 +1216,89 @@ static void BingoAuditConnections(const AFGBuildable* Built)
 // BINGO_GLOBAL_CONNECTIONS_V1
 // Parcours des liaisons de convoyeurs avec protection contre les boucles.
 // Les cases ne sont validees que si trois machines distinctes sont atteintes.
-static void BingoReachMachineEndpoints(
-    UFGFactoryConnectionComponent* Start,
-    TSet<const UFGFactoryConnectionComponent*>& SeenPorts,
-    TSet<const AFGBuildable*>& Machines,
-    int32 Depth)
+// BINGO_CONNECTION_CHECKS_V3
+// Follow connected ports only, downstream or upstream, without recursive depth limits.
+static void BingoTraceMachines(
+    UFGFactoryConnectionComponent* Start, bool bForward, bool bFollowSmelters,
+    TSet<const AFGBuildable*>& Machines)
 {
-    if (!IsValid(Start) || Depth > 128 || SeenPorts.Contains(Start)) return;
-    SeenPorts.Add(Start);
-    UFGFactoryConnectionComponent* Next = Start->GetConnection();
-    if (!IsValid(Next)) return;
-    const AFGBuildable* Owner = Cast<AFGBuildable>(Next->GetOwner());
-    if (!IsValid(Owner)) return;
-    const FString Name = Owner->GetClass()->GetName();
-    const bool IsConveyor =
-        Name.Contains(TEXT("ConveyorBelt"), ESearchCase::IgnoreCase) ||
-        Name.Contains(TEXT("ConveyorLift"), ESearchCase::IgnoreCase);
-    if (IsConveyor)
+    const EFactoryConnectionDirection ExitDirection = bForward
+        ? EFactoryConnectionDirection::FCD_OUTPUT : EFactoryConnectionDirection::FCD_INPUT;
+    const EFactoryConnectionDirection EntryDirection = bForward
+        ? EFactoryConnectionDirection::FCD_INPUT : EFactoryConnectionDirection::FCD_OUTPUT;
+    TArray<UFGFactoryConnectionComponent*> Pending;
+    TSet<const UFGFactoryConnectionComponent*> Seen;
+    if (IsValid(Start)) Pending.Add(Start);
+    while (Pending.Num() > 0)
     {
-        TInlineComponentArray<UFGFactoryConnectionComponent*> Ports;
-        Owner->GetComponents(Ports);
-        for (UFGFactoryConnectionComponent* Port : Ports)
+        UFGFactoryConnectionComponent* Port = Pending.Pop();
+        if (!IsValid(Port) || Seen.Contains(Port) ||
+            Port->GetDirection() != ExitDirection || !Port->IsConnected()) continue;
+        Seen.Add(Port);
+        UFGFactoryConnectionComponent* Other = Port->GetConnection();
+        if (!IsValid(Other) || Other->GetDirection() != EntryDirection) continue;
+        const AFGBuildable* Built = Cast<AFGBuildable>(Other->GetOwner());
+        if (!IsValid(Built) || Built->IsActorBeingDestroyed() ||
+            Built->IsBuildableInsideBlueprintDesigner()) continue;
+        const FString Name = Built->GetClass()->GetName();
+        const bool bTransit = Name.Contains(TEXT("ConveyorBelt"), ESearchCase::IgnoreCase) ||
+            Name.Contains(TEXT("ConveyorLift"), ESearchCase::IgnoreCase) ||
+            Name.Contains(TEXT("Splitter"), ESearchCase::IgnoreCase) ||
+            Name.Contains(TEXT("Merger"), ESearchCase::IgnoreCase) ||
+            Name.Contains(TEXT("ConveyorAttachment"), ESearchCase::IgnoreCase);
+        if (!bTransit)
         {
-            if (IsValid(Port) && Port != Next)
-                BingoReachMachineEndpoints(Port, SeenPorts, Machines, Depth + 1);
+            Machines.Add(Built);
+            if (!bFollowSmelters ||
+                !Name.Contains(TEXT("Smelter"), ESearchCase::IgnoreCase)) continue;
         }
-        return;
+        TInlineComponentArray<UFGFactoryConnectionComponent*> Ports;
+        Built->GetComponents(Ports);
+        for (UFGFactoryConnectionComponent* Next : Ports)
+            if (IsValid(Next) && Next != Other && Next->GetDirection() == ExitDirection)
+                Pending.Add(Next);
     }
-    // A connected conveyor attachment is another network junction, not a machine.
-    if (Name.Contains(TEXT("Splitter"), ESearchCase::IgnoreCase) ||
-        Name.Contains(TEXT("Merger"), ESearchCase::IgnoreCase) ||
-        Name.Contains(TEXT("ConveyorAttachment"), ESearchCase::IgnoreCase))
-        return;
-    if (Owner->IsA(AFGBuildableFactory::StaticClass()))
-        Machines.Add(Owner);
 }
 
 static void BingoCheckJunctionConnections(
     const AFGBuildable* Built, bool& Merger3, bool& Splitter3)
 {
-    if (!IsValid(Built)) return;
+    if (!IsValid(Built) || Built->IsActorBeingDestroyed() ||
+        Built->IsBuildableInsideBlueprintDesigner()) return;
     const FString Name = Built->GetClass()->GetName();
     const bool IsMerger = Name.Contains(TEXT("Merger"), ESearchCase::IgnoreCase);
     const bool IsSplitter = Name.Contains(TEXT("Splitter"), ESearchCase::IgnoreCase);
     if (!IsMerger && !IsSplitter) return;
     TInlineComponentArray<UFGFactoryConnectionComponent*> Ports;
     Built->GetComponents(Ports);
-    TSet<const AFGBuildable*> InputMachines;
-    TSet<const AFGBuildable*> OutputMachines;
-    int32 InputPorts = 0;
-    int32 OutputPorts = 0;
+    TSet<const AFGBuildable*> InputMachines, OutputMachines;
+    int32 InputPorts = 0, OutputPorts = 0;
     for (UFGFactoryConnectionComponent* Port : Ports)
     {
         if (!IsValid(Port) || !Port->IsConnected()) continue;
         const EFactoryConnectionDirection Direction = Port->GetDirection();
-        TSet<const UFGFactoryConnectionComponent*> Seen;
+        if (Direction != EFactoryConnectionDirection::FCD_INPUT &&
+            Direction != EFactoryConnectionDirection::FCD_OUTPUT) continue;
         TSet<const AFGBuildable*> Found;
-        BingoReachMachineEndpoints(Port, Seen, Found, 0);
-        if (Direction == EFactoryConnectionDirection::FCD_INPUT)
+        BingoTraceMachines(Port, Direction == EFactoryConnectionDirection::FCD_OUTPUT, false, Found);
+        int32 Count = 0;
+        for (const AFGBuildable* Machine : Found)
         {
-            ++InputPorts;
-            for (const AFGBuildable* Machine : Found) InputMachines.Add(Machine);
+            if (Machine == Built || !Machine->IsA(AFGBuildableFactory::StaticClass())) continue;
+            ++Count;
+            if (Direction == EFactoryConnectionDirection::FCD_INPUT) InputMachines.Add(Machine);
+            else OutputMachines.Add(Machine);
         }
-        else if (Direction == EFactoryConnectionDirection::FCD_OUTPUT)
+        if (Count > 0)
         {
-            ++OutputPorts;
-            for (const AFGBuildable* Machine : Found) OutputMachines.Add(Machine);
+            if (Direction == EFactoryConnectionDirection::FCD_INPUT) ++InputPorts;
+            else ++OutputPorts;
         }
     }
-    // Each of three separate junction ports must lead to a real machine.
     if (IsMerger && InputPorts >= 3 && InputMachines.Num() >= 3) Merger3 = true;
     if (IsSplitter && OutputPorts >= 3 && OutputMachines.Num() >= 3) Splitter3 = true;
 }
+
 // BINGO_P1_C20_ANY_FOUNDATIONS_V3
 // Compter 10 fondations de n'importe quel type, sans connexion.
 static bool BingoP1HasTenFoundations(
@@ -1239,6 +1309,7 @@ static bool BingoP1HasTenFoundations(
     for (AFGBuildable* Buildable : Buildables)
     {
         if (IsValid(Buildable) &&
+            !Buildable->IsBuildableInsideBlueprintDesigner() &&
             Buildable->IsA(AFGBuildableFoundation::StaticClass()))
         {
             ++Count;
@@ -1254,6 +1325,7 @@ void ABingoSubsystem::OnBingoActorsConstructed(
     AFGCharacterPlayer* Player,
     TArray<AActor*> ConstructedActors)
 {
+    BingoCheckCountedBuilds();
     // P1_C20: 10 foundations of any type, anywhere.
     if (HasAuthority() && GetWorld())
     {
@@ -1286,14 +1358,6 @@ void ABingoSubsystem::OnBingoActorsConstructed(
                 ValidateChallengeForAllPlayers(TEXT("P1_C9"));
             if (BingoCountExistingBuildables(P1Existing, TEXT("Build_ResourceSinkShop_C")) > 0)
                 ValidateChallengeForAllPlayers(TEXT("P1_C16"));
-        }
-        for (TActorIterator<AFGVehicle> VehicleIt(GetWorld()); VehicleIt; ++VehicleIt)
-        {
-            if (IsValid(*VehicleIt))
-            {
-                ValidateChallengeForAllPlayers(TEXT("P1_C12"));
-                break;
-            }
         }
     }
     if (HasAuthority())
@@ -1566,9 +1630,15 @@ void ABingoSubsystem::OnBingoActorsConstructed(
         {
             ValidateChallengeForAllPlayers(TEXT("P1_C7"));
         }
-        if (Actor->IsA(AFGBuildableStorage::StaticClass()))
+        if (const AFGBuildable* Storage = Cast<AFGBuildable>(Actor))
         {
-            ValidateChallengeForAllPlayers(TEXT("P1_C9"));
+            const FString StorageClass = Storage->GetClass()->GetName();
+
+            if (StorageClass.Equals(TEXT("Build_StorageContainerMk1_C"), ESearchCase::IgnoreCase) ||
+                StorageClass.Equals(TEXT("Build_StorageContainerMk2_C"), ESearchCase::IgnoreCase))
+            {
+                ValidateChallengeForAllPlayers(TEXT("P1_C9"));
+            }
         }
         if (Actor->IsA(AFGBuildableResourceSinkShop::StaticClass()))
         {
@@ -1605,13 +1675,6 @@ void ABingoSubsystem::OnBingoActorsConstructed(
                 ValidateChallengeForAllPlayers(TEXT("P1_C8"));
             }
         }
-        // BINGO_LOT_05_VEHICLE_CONSTRUCTION_V1
-        // Valide uniquement un vehicule reel recu dans l'evenement de construction.
-        // Ne valide pas un hologramme ou un batiment de transport.
-        if (Actor->IsA(AFGVehicle::StaticClass()))
-        {
-            ValidateChallengeForAllPlayers(TEXT("P1_C12"));
-        }
         if (Actor->IsA(AFGBuildableMAM::StaticClass()))
         {
             ValidateChallengeForAllPlayers(TEXT("P1_C6"));
@@ -1621,46 +1684,23 @@ void ABingoSubsystem::OnBingoActorsConstructed(
 
 // BINGO_C17_DIRECTED_CHAIN_V1
 // Only traverse actual connected conveyor ports, in the output direction.
-static void BingoChainTargets(UFGFactoryConnectionComponent* Start,
-    TSet<const UFGFactoryConnectionComponent*>& Seen,
-    TSet<const AFGBuildable*>& Targets, int32 Depth)
+static bool BingoChainLinks(const AFGBuildable* From, const AFGBuildable* To,
+    bool bFollowSmelters = false)
 {
-    if (!IsValid(Start) || Depth > 128 || Seen.Contains(Start)) return;
-    Seen.Add(Start);
-    UFGFactoryConnectionComponent* Other = Start->GetConnection();
-    if (!IsValid(Other)) return;
-    const AFGBuildable* B = Cast<AFGBuildable>(Other->GetOwner());
-    if (!IsValid(B)) return;
-    const FString N = B->GetClass()->GetName();
-    const bool Transit = N.Contains(TEXT("ConveyorBelt"), ESearchCase::IgnoreCase) ||
-        N.Contains(TEXT("ConveyorLift"), ESearchCase::IgnoreCase) ||
-        N.Contains(TEXT("Splitter"), ESearchCase::IgnoreCase) ||
-        N.Contains(TEXT("Merger"), ESearchCase::IgnoreCase) ||
-        N.Contains(TEXT("ConveyorAttachment"), ESearchCase::IgnoreCase);
-    if (!Transit) { Targets.Add(B); return; }
-    TInlineComponentArray<UFGFactoryConnectionComponent*> Ports;
-    B->GetComponents(Ports);
-    for (UFGFactoryConnectionComponent* P : Ports)
-        if (IsValid(P) && P != Other && P->IsConnected() &&
-            P->GetDirection() != EFactoryConnectionDirection::FCD_INPUT)
-            BingoChainTargets(P, Seen, Targets, Depth + 1);
-}
-static bool BingoChainLinks(const AFGBuildable* From, const AFGBuildable* To)
-{
-    if (!IsValid(From) || !IsValid(To)) return false;
+    if (!IsValid(From) || !IsValid(To) || From == To ||
+        From->IsActorBeingDestroyed() || To->IsActorBeingDestroyed() ||
+        From->IsBuildableInsideBlueprintDesigner() || To->IsBuildableInsideBlueprintDesigner()) return false;
     TInlineComponentArray<UFGFactoryConnectionComponent*> Ports;
     From->GetComponents(Ports);
-    for (UFGFactoryConnectionComponent* P : Ports)
+    for (UFGFactoryConnectionComponent* Port : Ports)
     {
-        if (!IsValid(P) || !P->IsConnected() ||
-            P->GetDirection() == EFactoryConnectionDirection::FCD_INPUT) continue;
-        TSet<const UFGFactoryConnectionComponent*> Seen;
-        TSet<const AFGBuildable*> Targets;
-        BingoChainTargets(P, Seen, Targets, 0);
-        if (Targets.Contains(To)) return true;
+        TSet<const AFGBuildable*> Found;
+        BingoTraceMachines(Port, true, bFollowSmelters, Found);
+        if (Found.Contains(To)) return true;
     }
     return false;
 }
+// BINGO_SHARED_NODE_SMELTER_V2
 // BINGO_SHARED_NODE_C5_C15_V1
 // A single real miner, attached to a resource node, must supply two distinct machines.
 // We require conveyor paths; proximity and inventory contents are insufficient.
@@ -1680,7 +1720,7 @@ static void BingoCheckSharedNodeMachines(
         for (const AFGBuildable* Machine : Targets)
         {
             if (!IsValid(Machine)) continue;
-            if (BingoChainLinks(Miner, Machine) && ++Connected >= 2)
+            if (BingoChainLinks(Miner, Machine, true) && ++Connected >= 2)
             {
                 Found = true;
                 return;
@@ -1740,7 +1780,7 @@ void ABingoSubsystem::BingoCheckSharedResourceNode()
     TArray<const AFGBuildable*> Miners, Constructors, Smelters;
     for (AFGBuildable* B : System->GetAllBuildablesRef())
     {
-        if (!IsValid(B)) continue;
+        if (!IsValid(B) || B->IsActorBeingDestroyed() || B->IsBuildableInsideBlueprintDesigner()) continue;
         const FString Name = B->GetClass()->GetName();
         if (B->IsA(AFGBuildableResourceExtractor::StaticClass()) &&
             Name.Contains(TEXT("Miner"), ESearchCase::IgnoreCase)) Miners.Add(B);
@@ -1769,7 +1809,7 @@ void ABingoSubsystem::BingoCheckProductionChains()
 
     for (AFGBuildable* Buildable : System->GetAllBuildablesRef())
     {
-        if (!IsValid(Buildable)) continue;
+        if (!IsValid(Buildable) || Buildable->IsActorBeingDestroyed() || Buildable->IsBuildableInsideBlueprintDesigner()) continue;
 
         const FString Name = Buildable->GetClass()->GetName();
 
@@ -1783,7 +1823,8 @@ void ABingoSubsystem::BingoCheckProductionChains()
         if (Name.Contains(TEXT("Constructor"), ESearchCase::IgnoreCase))
             Constructors.Add(Buildable);
 
-        if (Buildable->IsA(AFGBuildableStorage::StaticClass()))
+        if (Name.Equals(TEXT("Build_StorageContainerMk1_C"), ESearchCase::IgnoreCase) ||
+            Name.Equals(TEXT("Build_StorageContainerMk2_C"), ESearchCase::IgnoreCase))
             Storages.Add(Buildable);
     }
 
@@ -1930,7 +1971,7 @@ void ABingoSubsystem::BingoCheckElectricity()
     {
         if (TotalProducedMW > Threshold.RequiredMW)
         {
-            ValidateChallenge(FString(Threshold.ChallengeId));
+            ValidateChallengeForAllPlayers(FString(Threshold.ChallengeId));
         }
     }
 }
@@ -1940,6 +1981,12 @@ void ABingoSubsystem::BingoOnResearchCompleted(TSubclassOf<UFGSchematic> Schemat
     if (!HasAuthority() || !Schematic)
     {
         return;
+    }
+
+    if (UFGSchematic::GetType(Schematic) == ESchematicType::EST_HardDrive)
+    {
+        BingoHardDriveAnalyses = FMath::Min(BingoHardDriveAnalyses + 1, 1000000);
+        BingoCheckGlobalHardDriveResearch();
     }
 
     const FString SchematicKey = GetNameSafe(Schematic.Get());
@@ -1986,6 +2033,7 @@ void ABingoSubsystem::BingoOnSchematicPurchasedByPlayer(
     UE_LOG(LogTemp, Display,
         TEXT("[Bingo][Shop] Achat attribué au joueur : %s"),
         *GetNameSafe(Schematic.Get()));
+    BingoRecordShopPurchase(Schematic, Player);
 }
 
 void ABingoSubsystem::BingoSendPersonalProgress()
@@ -2015,28 +2063,28 @@ void ABingoSubsystem::BingoSendPersonalProgress()
         AFGPlayerState* PlayerState =
             Cast<AFGPlayerState>(Player->GetPlayerState());
 
-        if (!IsValid(PlayerState))
-            continue;
+        if (!IsValid(PlayerState)) { UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_06] Envoi saute : PlayerState invalide")); continue; }
 
         const FString PlayerId = BingoGetPlayerId(PlayerState);
 
-        if (PlayerId.IsEmpty())
-            continue;
+        if (PlayerId.IsEmpty()) { UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_07] Envoi saute : identifiant joueur vide")); continue; }
 
         const FBingoPlayerProgress* Progress =
             BingoFindPlayerProgress(PlayerId);
 
-        if (!Progress)
-            continue;
+        if (!Progress) { UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_08] Envoi saute : progression absente pour %s"), *PlayerId); continue; }
 
         for (ABingoRadarPlayerActor* NetworkActor : RadarPlayerActors)
         {
             if (!IsValid(NetworkActor) ||
                 NetworkActor->GetOwner() != Controller)
             {
+                UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_09] Acteur ignore : proprietaire %s != controleur %s"), *GetNameSafe(NetworkActor ? NetworkActor->GetOwner() : nullptr), *GetNameSafe(Controller));
                 continue;
             }
 
+            UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_04] Envoi RPC a %s phase=%d points=%d"),
+                *GetNameSafe(Controller), Progress->CurrentPhase, Progress->Points);
             NetworkActor->Client_ReceiveBingoProgress(
                 Progress->CurrentPhase,
                 Progress->Points,
@@ -2050,6 +2098,17 @@ void ABingoSubsystem::BingoSendPersonalProgress()
 void ABingoSubsystem::BingoEnsurePlayerNetworkActors()
 {
     // BINGO_PLAYER_NETWORK_ACTORS_V1
+    if (GetWorld())
+    {
+        int32 NChars = 0, NCtrl = 0;
+        for (TActorIterator<AFGCharacterPlayer> DIt(GetWorld()); DIt; ++DIt)
+        {
+            ++NChars;
+            if (IsValid(DIt->GetController())) ++NCtrl;
+        }
+        UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_02] Authority=%d Personnages=%d AvecControleur=%d ActeursReseau=%d"),
+            HasAuthority() ? 1 : 0, NChars, NCtrl, RadarPlayerActors.Num());
+    }
     if (!HasAuthority() || !GetWorld())
         return;
 
@@ -2093,6 +2152,7 @@ void ABingoSubsystem::BingoEnsurePlayerNetworkActors()
         if (IsValid(Actor))
         {
             RadarPlayerActors.Add(Actor);
+            UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_03] Acteur reseau cree pour %s"), *GetNameSafe(Controller));
 
             UE_LOG(LogTemp, Display,
                 TEXT("[Bingo] Acteur reseau cree pour %s"),
@@ -2270,11 +2330,27 @@ static bool BingoActiveRecipeUsesAndProduces(const AFGBuildableManufacturer* Mac
 void ABingoSubsystem::BingoCheckActiveManufacturingRecipes()
 {
     if (!HasAuthority() || !GetWorld()) return;
+    TSet<UClass*> ConvertedOres;
+    int32 ActiveOreConverters = 0;
     for (TActorIterator<AFGBuildableManufacturer> It(GetWorld()); It; ++It)
     {
         AFGBuildableManufacturer* Machine = *It;
-        if (!IsValid(Machine) || !Machine->IsProducing()) continue;
+        if (!IsValid(Machine) || !Machine->IsProducing() || Machine->IsBuildableInsideBlueprintDesigner()) continue;
         const FString ClassName = Machine->GetClass()->GetName();
+        if (ClassName.Contains(TEXT("Converter"), ESearchCase::IgnoreCase))
+        {
+            bool bProducesOre = false;
+            const TSubclassOf<UFGRecipe> Recipe = Machine->GetCurrentRecipe();
+            if (Recipe)
+                for (const FItemAmount& Product : UFGRecipe::GetProducts(Recipe))
+                    if (Product.ItemClass && Product.ItemClass->IsChildOf(UFGResourceDescriptor::StaticClass()) &&
+                        UFGItemDescriptor::GetForm(Product.ItemClass) == EResourceForm::RF_SOLID)
+                    {
+                        ConvertedOres.Add(Product.ItemClass.Get());
+                        bProducesOre = true;
+                    }
+            if (bProducesOre) ++ActiveOreConverters;
+        }
         if (ClassName.Contains(TEXT("Blender"), ESearchCase::IgnoreCase))
             ValidateChallengeForAllPlayers(TEXT("P4_C15"));
         if (ClassName.Contains(TEXT("Refinery"), ESearchCase::IgnoreCase) &&
@@ -2283,19 +2359,27 @@ void ABingoSubsystem::BingoCheckActiveManufacturingRecipes()
         if (BingoActiveRecipeProduces(Machine, TEXT("TimeCrystal")))
             ValidateChallengeForAllPlayers(TEXT("P5_C3"));
         if (BingoActiveRecipeProduces(Machine, TEXT("Diamond")))
+        {
             ValidateChallengeForAllPlayers(TEXT("P5_C4"));
+            ValidateChallengeForAllPlayers(TEXT("P5_C8"));
+        }
+        if (BingoActiveRecipeProduces(Machine, TEXT("HighSpeedWire")))
+            ValidateChallengeForAllPlayers(TEXT("P3_C2"));
         if (BingoActiveRecipeProduces(Machine, TEXT("FicsiteIngot")))
             ValidateChallengeForAllPlayers(TEXT("P5_C5"));
-        if (BingoActiveRecipeProduces(Machine, TEXT("FicsiteTrigon")))
+        if (BingoActiveRecipeProduces(Machine, TEXT("FicsiteMesh")))
             ValidateChallengeForAllPlayers(TEXT("P5_C6"));
-        if (BingoActiveRecipeProduces(Machine, TEXT("NuclearPasta")))
+        if (BingoActiveRecipeProduces(Machine, TEXT("SpaceElevatorPart_9")))
             ValidateChallengeForAllPlayers(TEXT("P5_C7"));
     }
+    if (ActiveOreConverters >= 1) ValidateChallengeForAllPlayers(TEXT("P5_C20"));
+    if (ActiveOreConverters >= 2 && ConvertedOres.Num() >= 2) ValidateChallengeForAllPlayers(TEXT("P5_C19"));
 }
 void ABingoSubsystem::BingoRefreshInventoryBindings()
 {
     
     // BINGO_INIT_PLAYERS_CALL_V1
+    UE_LOG(LogTemp, Warning, TEXT("[BINGO_SYNC_01] Timer 10s execute Authority=%d"), HasAuthority() ? 1 : 0);
     BingoInitializeConnectedPlayers();
 
     // BINGO_PERSONAL_AUTO_SYNC_V1
@@ -2341,22 +2425,9 @@ void ABingoSubsystem::BingoOnMapAreaVisited(TSubclassOf<UFGMapArea> MapArea)
     if (!HasAuthority() || !MapArea) return;
     UE_LOG(LogTemp, Display, TEXT("[Bingo][Exploration] Zone visitee : %s (classe a classifier)"),
         *GetNameSafe(MapArea.Get()));
-    // BINGO_P1_EXPLORATION_CLASSIFIED_V1
-    // Only engine-reported map-area visits; never infer exploration from inventory or position.
-    // Conservative class-name classification. Unrecognized areas remain unvalidated.
-    const FString BingoP1AreaClass = GetNameSafe(MapArea.Get());
-    if (BingoP1AreaClass.Contains(TEXT("Cave"), ESearchCase::IgnoreCase) ||
-        BingoP1AreaClass.Contains(TEXT("Grotte"), ESearchCase::IgnoreCase))
-    {
-        ValidateChallenge(TEXT("P1_C24"));
-    }
-    if (BingoP1AreaClass.Contains(TEXT("Coast"), ESearchCase::IgnoreCase) ||
-        BingoP1AreaClass.Contains(TEXT("Coastal"), ESearchCase::IgnoreCase) ||
-        BingoP1AreaClass.Contains(TEXT("Beach"), ESearchCase::IgnoreCase) ||
-        BingoP1AreaClass.Contains(TEXT("Plage"), ESearchCase::IgnoreCase))
-    {
-        ValidateChallenge(TEXT("P1_C25"));
-    }
+    // The global event has no player argument. Attribute exploration through
+    // each player's own visited-area list, never through a world broadcast.
+    BingoRecheckPersonalExploration();
     const FString AreaKey = GetNameSafe(MapArea.Get());
     int32& Visited = BingoVisitedAreaEvents.FindOrAdd(AreaKey);
     Visited = FMath::Max(0, Visited) + 1;    // Unique class, not an inferred biome, cave or coast achievement.

@@ -11,7 +11,7 @@ DEFINE_LOG_CATEGORY_STATIC(LogBingoUnlock, Log, All);
 
 UBingoGameWorldModule::UBingoGameWorldModule()
 {
-    bRootModule = true;
+    bRootModule = false;
 }
 void UBingoGameWorldModule::DispatchLifecycleEvent(ELifecyclePhase Phase)
 {

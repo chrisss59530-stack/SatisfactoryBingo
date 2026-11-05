@@ -6,6 +6,7 @@
 #include "BingoSubsystem.generated.h"
 
 class AFGPlayerState;
+class AFGPlayerController;
 struct FItemAmount;
 class UBingoGameData;
 class AFGCharacterPlayer;
@@ -43,6 +44,33 @@ struct FBingoPlayerProgress
 
     UPROPERTY(SaveGame)
     int32 MercerSpheresCollected = 0;
+
+    UPROPERTY(SaveGame)
+    int32 ShopCouponsSpent = 0;
+
+    UPROPERTY(SaveGame)
+    TSet<FString> RecordedShopSchematics;
+
+    UPROPERTY(SaveGame)
+    bool bBoughtFoundation = false;
+
+    UPROPERTY(SaveGame)
+    bool bBoughtWall = false;
+
+    UPROPERTY(SaveGame)
+    bool bBoughtCup = false;
+
+    UPROPERTY(SaveGame)
+    int32 HoverPacksCrafted = 0;
+
+    UPROPERTY(SaveGame)
+    bool bSavedBlueprintInDesigner = false;
+
+    UPROPERTY(SaveGame)
+    bool bSafeJetpackOrParachuteLanding = false;
+
+    UPROPERTY(SaveGame)
+    bool bSafeHoverpackLanding = false;
 };
 UCLASS()
 class SATISFACTORYBINGO_API ABingoSubsystem
@@ -174,6 +202,9 @@ void BingoOnResearchCompleted(TSubclassOf<UFGSchematic> Schematic);
 
     UPROPERTY(SaveGame)
     int32 BingoResearchCompletions = 0;
+
+    UPROPERTY(SaveGame)
+    int32 BingoHardDriveAnalyses = 0;
     // Distinct events, recorded by real Satisfactory delegates.
     UPROPERTY(SaveGame)
     TSet<FString> BingoUniqueResearchSchematics;
@@ -212,6 +243,18 @@ void BingoOnResearchCompleted(TSubclassOf<UFGSchematic> Schematic);
     bool BuyBingoReward(
         const FString& RewardId,
         AFGCharacterPlayer* Player);
+
+    // Called on the game thread with the game's confirmed cumulative factory
+    // totals, never from an inventory-add event.
+    void BingoObserveFactoryProduction(
+        const TMap<TSubclassOf<UFGItemDescriptor>, uint64>& Totals,
+        const TMap<TSubclassOf<UFGItemDescriptor>, int64>& Rates);
+
+    void BingoBeginBlueprintSave(AFGPlayerController* Controller);
+    void BingoEndBlueprintSave();
+    void BingoConfirmBlueprintWrite();
+    void BingoRecordConveyorUpgrade();
+    void BingoRecordSafeLanding(AFGCharacterPlayer* Player, bool bJetpackOrParachute, bool bHoverpack);
     virtual void PreSaveGame_Implementation(
         int32 SaveVersion, int32 GameVersion) override;
 
@@ -226,6 +269,34 @@ void BingoOnResearchCompleted(TSubclassOf<UFGSchematic> Schematic);
         TArray<UObject*>& OutDependencies) override;
 
 private:
+    void BingoRecheckPersonalCollections();
+    void BingoCheckGlobalHardDriveResearch();
+    void BingoCheckCountedBuilds();
+    void BingoRecheckPersonalExploration();
+    void BingoCheckEquipmentAndTrains();
+    void BingoCheckConfirmedProduction();
+    void BingoRecordShopPurchase(TSubclassOf<UFGSchematic> Schematic, AFGCharacterPlayer* Player);
+    void BingoRecordHoverPackCraft(AFGPlayerState* PlayerState, const FItemAmount& Crafted);
+    void BingoRecheckPersonalAchievements();
+    void BingoEnsureObjectiveBindings();
+
+    UPROPERTY(SaveGame)
+    TMap<FString, int64> BingoConfirmedProductionTotals;
+
+    TMap<FString, int64> BingoLastProductionRates;
+    double BingoLastProductionRateTime = -1.0;
+
+    UPROPERTY(SaveGame)
+    bool bBingoMk3ToMk5Upgrade = false;
+
+    TArray<TWeakObjectPtr<AFGPlayerController>> BingoBlueprintSaveContexts;
+
+    UPROPERTY(Transient)
+    TSubclassOf<UFGItemDescriptor> BingoHardDriveDescriptor;
+
+    UPROPERTY(Transient)
+    TSubclassOf<UFGItemDescriptor> BingoMercerDescriptor;
+
     UPROPERTY(ReplicatedUsing=OnRep_BingoProgress, SaveGame)
     int32 TotalBingoPoints = 0;
 

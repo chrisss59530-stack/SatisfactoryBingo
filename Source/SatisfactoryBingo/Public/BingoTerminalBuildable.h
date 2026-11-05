@@ -5,6 +5,7 @@
 #include "BingoTerminalBuildable.generated.h"
 
 class UBoxComponent;
+class UTexture2D;
 class UFGPowerConnectionComponent;
 class UFGPowerInfoComponent;
 
@@ -25,6 +26,10 @@ protected:
     virtual void OnUse_Implementation(class AFGCharacterPlayer* byCharacter, const FUseState& state) override;
 
 private:
+    // Hard reference ensures the frame is included when cooking the terminal asset.
+    UPROPERTY(EditDefaultsOnly, Category="Bingo|Appearance")
+    TObjectPtr<UTexture2D> BingoFrameTexture;
+
     UPROPERTY(VisibleAnywhere, Category="Bingo|Interaction")
     TObjectPtr<UBoxComponent> InteractionBox;
 

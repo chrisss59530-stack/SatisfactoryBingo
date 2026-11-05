@@ -14,7 +14,6 @@ public class SatisfactoryBingoEditor : ModuleRules
             "UnrealEd",
             "Kismet",
             "BlueprintGraph",
-            "Figma2UMG",
             "UMG",
             "UMGEditor"
         });

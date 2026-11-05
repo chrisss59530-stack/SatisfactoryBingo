@@ -1,8 +1,5 @@
 {
     "FileVersion":  3,
-    "Version":  1,
-    "VersionName":  "0.1.0",
-    "SemVersion":  "1.0.0",
     "FriendlyName":  "Satisfactory Bingo",
     "Description":  "Bingo personnalisable avec validation automatique des defis.",
     "Category":  "Gameplay",
@@ -34,5 +31,8 @@
     "SupportURL":  "",
     "IsExperimentalVersion":  false,
     "Installed":  false,
-    "GameVersion":  "\u003e=513885"
+    "GameVersion":  "\u003e=513885",
+    "Version":  0,
+    "VersionName":  "0.8.4",
+    "SemVersion":  "0.8.4"
 }

@@ -1,0 +1,69 @@
+name: Signaler un problème
+description: Retour bêta avec captures et journaux.
+title: "[Bêta 0.8.4] "
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Versions du mod et du jeu
+    validations:
+      required: true
+  - type: dropdown
+    id: systeme
+    attributes:
+      label: Système
+      options:
+        - Windows
+        - Linux avec Proton
+        - Serveur dédié Linux
+        - Autre
+  - type: dropdown
+    id: role
+    attributes:
+      label: Type de partie
+      options:
+        - Solo
+        - Hôte multijoueur
+        - Client multijoueur
+        - Serveur dédié
+  - type: dropdown
+    id: categorie
+    attributes:
+      label: Catégorie
+      options:
+        - Crash
+        - Défi
+        - Interface
+        - Récompense
+        - Progression ou sauvegarde
+        - Autre
+  - type: dropdown
+    id: gravite
+    attributes:
+      label: Gravité
+      options:
+        - Bloquant
+        - Gênant
+        - Visuel
+  - type: textarea
+    id: contexte
+    attributes:
+      label: Contexte
+      description: Phase et texte du défi, terminal alimenté ou non, autres mods, nombre de joueurs et options Proton.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Étapes pour reproduire
+    validations:
+      required: true
+  - type: textarea
+    id: resultat
+    attributes:
+      label: Résultat attendu et résultat obtenu
+    validations:
+      required: true
+  - type: textarea
+    id: fichiers
+    attributes:
+      label: Captures, vidéos et journaux
+      description: Glissez vos fichiers ici. Retirez les informations personnelles avant publication.
